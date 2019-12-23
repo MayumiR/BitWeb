@@ -569,14 +569,16 @@ $(document).on('click', '.edit', function()
                        button.setAttribute('type','button');
                        button.setAttribute("id","edit");
                        button.setAttribute("name","edit");
-                       //button.setAttribute('class','material-icons md-dark pmd-sm');
+                    //    button.setAttribute('class','material-icons md-dark pmd-sm');
                     //    button.setAttribute("style","background-image: {images/icon_minus.png};");
                     //    button.setAttribute('style.backgound','images/icon_minus.png');
-                    //button.innerHTML('images/icon_minus.png');
+                    //    button.innerHTML('images/icon_minus.png');
                         row2.appendChild(col21);
                         row2.appendChild(col22); 
                         row2.appendChild(button); 
-                        table.appendChild(row2);                
+                        table.appendChild(row2);
+
+                                       
                         
                     }
 

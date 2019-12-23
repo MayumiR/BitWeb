@@ -180,8 +180,10 @@ function ReplaceNumberWithCommas(yourNumber) {
                       {
                         var results = data['data'];
                         var html = '';
+                      //  var html = '<th>Details of '+ref_no+' Order</th>';
                         $('#body-daily-report').html('');
                         var total = 0;
+                        var title = 'Details of '+ref_no+' order';
                         $.each(results, function( index, value ) {
                               html  += '<tr>';
                               html += '<td></td>';
@@ -197,6 +199,7 @@ function ReplaceNumberWithCommas(yourNumber) {
                         });
                         $('#body-daily-report').append(html);
                         $('#grand_total').html(total);
+                        $('#exampleModalLabel').html(title);
                       }
                   });
                 });
