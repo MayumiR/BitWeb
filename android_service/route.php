@@ -10,7 +10,7 @@ if (isset($_REQUEST['repcode']) && $_REQUEST['repcode'] != "") {
     $query_route = "SELECT r.routecode, r.routename
 					FROM route r, route_rep rr
 					WHERE r.routecode = rr.routecode and r.status = '1' and
-                                        rr.repcode = '" .$_REQUEST['repcode']."' limit 1";
+                                        rr.repcode = '" .$_REQUEST['repcode']."'";
     //add date ekak dala add date desc deela limit 1 karanna ona..one time can be go one route.thats why
      $result_route = mysqli_query($connection,$query_route);  
      $routes=array();

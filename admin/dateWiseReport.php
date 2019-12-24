@@ -46,16 +46,26 @@ $connection=(new DBConnection())->getDBConnection();
 //                });
 //            }
 
+            // function showDate(input){
+            //     // $('#div').html(input.value);
+            //     console.log(input.value);
+            //     alert(input.value);
+            // }
+
 
             $(document).ready(function () {
 
 
             var table = $('#orders').DataTable();
                     table.destroy();
-            var from = document.getElementById("date1").value;
-                    var to = document.getElementById("date2").value;
+
+                   
 //
             $("#Drpt").click(function () {
+                var from = document.getElementById("date1").value;
+                    var to = document.getElementById("date2").value;
+
+                alert(from+' - '+to);
                       $('#orders').DataTable({
 
         "ajax": "getDateWise.php?from=" + from + "&to=" + to,
@@ -150,8 +160,8 @@ $connection=(new DBConnection())->getDBConnection();
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="#dailyRpt" role="button" id="btnFilter" data-target="#dailyRpt"  data-toggle="modal"><span class="glyphicon glyphicon-leaf"></span> Filter</a>
-                            <u
-                    </li>
+                            
+                        </li>
 
                 </ul>
 
@@ -200,7 +210,7 @@ $connection=(new DBConnection())->getDBConnection();
 
                             <div class="form-group">
                                 <div class='input-group date' id='datetimepicker2'>
-                                    <input type='text' class="form-control" id="date2" />
+                                    <input type="text" class="form-control" id="date2"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -214,6 +224,7 @@ $connection=(new DBConnection())->getDBConnection();
                                         defaultDate: new Date()
 
                                     });
+
 
                                 });
 

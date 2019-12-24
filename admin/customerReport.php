@@ -53,11 +53,12 @@ $getCustomers = dataFunctions::getCustomers($connection);
 
             var table = $('#orders').DataTable();
                     table.destroy();
-            var code = document.getElementById("code").value;
+            
 //
             $("#Drpt").click(function () {
                       $('#orders').DataTable({
-
+    var code = document.getElementById("code").value;
+    alert(code);
         "ajax": "getCustomers.php?code="+code,
         "columns": [
             {
