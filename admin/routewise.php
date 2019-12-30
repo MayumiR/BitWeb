@@ -8,7 +8,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Daily |Rpt</title>
+        <title>Route wise |Rpt</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -23,60 +23,37 @@ $getRoutes = dataFunctions::getRoutes($connection);
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
         <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css">
 
-<!-- <script>
-
- function autoRefresh1()
-{
-	   window.location.reload();
-}
-
- setInterval('autoRefresh1()', 18000); // this will reload page after every 5 secounds; Method II
-</script> -->
-
         <script type="text/javascript">
-
-//            function FilterUsersByDivision(sel) {
-//
-//                var division = sel.value;
-//                $.ajax({
-//                    url: 'filterUsersbyDivision.php?costCode=' + division,
-//                    success: function (data) {
-//
-//                        $("#user").html(data);
-//                    }
-//                });
-//            }
-
 
             $(document).ready(function () {
 
-
-            var table = $('#orders').DataTable();
-                    table.destroy();
-            var code = document.getElementById("code").value;
-//
             $("#Drpt").click(function () {
+
+                var table = $('#orders').DataTable();
+                    table.destroy();
+                var code = document.getElementById("code").value;
                       $('#orders').DataTable({
 
-        "ajax": "getRouteWise.php?route=" + code,
-        "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "RefNo" },
-            { "data": "CusName" },
-            { "data": "RouteName" },
-            { "data": "TxnDate" },
-            { "data": "TotAmt" },
-//            {"mRender": function (data, type, row) {
-//
-//                                    return "<button class='btn btn-primary btn-xs' href='#'  data-toggle='modal' data-target='#' ><span class='glyphicon  glyphicon-pencil' aria-hidden='true'></button>  <a href='#' id='remove' role='button' class='btn btn-danger btn-xs'><span class='glyphicon  glyphicon-remove' aria-hidden='true'></span></a>"
-//
-//                                }
-//                            }
+                        "ajax": "getRouteWise.php?route=" + code,
+                        "columns": [
+                        {
+                        "className":      'details-control',
+                         "orderable":      false,
+                         "data":           null,
+                         "defaultContent": ''
+                        },
+                        { "data": "RefNo" },
+                        { "data": "CusName" },
+                        { "data": "RouteName" },
+                        { "data": "TxnDate" },
+                        { "data": "TotAmt" },
+                        {"mRender": function (data, type, row) {
+
+                                   // var res = '<button class="btn btn-primary btn-xs"><span class="glyphicon  glyphicon-remove" aria-hidden="true"></span></button>';
+                                   return "<button class='btn btn-primary btn-xs' href='##editModal'  data-toggle='modal' data-target='#editModal' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
+                                  // return res;
+                               }
+                        }
         ],
         "order": [[1, 'asc']],
         dom: 'Bfrtip',
@@ -85,8 +62,108 @@ $getRoutes = dataFunctions::getRoutes($connection);
                             ]
                 });
             });
-        });
+        
 
+        //sample for edit user
+        $('#orders').on('click', 'button', function () {
+
+var data = $('#orders').DataTable().row($(this).closest('tr')).data();
+
+var refno = data.RefNo;
+
+
+// FOR ADMIN -------------------------------------------------------------------
+// if (userCode == '002') {
+alert(refno);
+//     var r = confirm("Are you sure to remove this Task?");
+//     if (r == true) {
+
+//         $.post("removeTask.php", {
+//             jobno: job_no,
+//             taskId: task_no
+//         }, function (data) {
+
+//             if (data == 200) {
+//                 alert("Task removed");
+//                 window.location.href = 'home.php';
+//             } else {
+//                 alert("Deleting Task Failed!");
+//             }
+
+//         });
+//     }
+// } else if (ACT_HRS == null && type == '1' && userName == all_to) { // for normal user--------------
+//     var r = confirm("Are you sure to remove this Task?");
+//     if (r == true) {
+
+//         $.post("removeTask.php", {
+//             jobno: job_no,
+//             taskId: task_no
+//         }, function (data) {
+
+
+
+//             if (data == 200) {
+//                 alert("Task removed");
+//                 window.location.href = 'home.php';
+//             } else {
+//                 alert("Deleting Task Failed!");
+//             }
+
+//         });
+
+//     }
+// } else if (type == '3' && ACT_HRS == null) {//-----for PM
+//     var r = confirm("Are you sure to remove this Task?");
+//     if (r == true) {
+
+//         $.post("removeTask.php", {
+//             jobno: job_no,
+//             taskId: task_no
+//         }, function (data) {
+
+
+
+//             if (data == 200) {
+//                 alert("Task removed");
+//                 window.location.href = 'home.php';
+//             } else {
+//                 alert("Deleting Task Failed!");
+//             }
+
+//         });
+//     }
+// } else if (All_By == userName && ACT_HRS == null) {
+//     var r = confirm("Are you sure to remove this Task?");
+//     if (r == true) {
+
+//         $.post("removeTask.php", {
+//             jobno: job_no,
+//             taskId: task_no
+//         }, function (data) {
+
+
+
+//             if (data == 200) {
+//                 alert("Task removed");
+//                 window.location.href = 'home.php';
+//             } else {
+//                 alert("Deleting Task Failed!");
+//             }
+
+//         });
+//     }
+// } else {
+//     alert("You are not Athorized to Remove this Task!");
+// }
+});
+
+$("#updateUser").click(function () {
+
+var editedUser = document.getElementById("refno").value;
+//alert(newHour);
+});
+});
         </script>
         <style>
             @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
@@ -150,7 +227,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="#dailyRpt" role="button" id="btnFilter" data-target="#dailyRpt"  data-toggle="modal"><span class="glyphicon glyphicon-leaf"></span> Filter</a>
-                            <u
+                            
                     </li>
 
                 </ul>
@@ -174,7 +251,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                                     <label
                                                         for="inputPassword3" >Select Route</label>
 
-                                                    <select id="rep_code" class="form-control" >
+                                                    <select id="code" class="form-control" >
                                                         <option value="0"> --SELECT-- </option>
                                                         <?php foreach ($getRoutes as $returnrow): ?>
 
@@ -201,6 +278,29 @@ $getRoutes = dataFunctions::getRoutes($connection);
         <!--date range search-->
         <!--title -->
 
+<!-- detail modal start-->
+<div class="modal fade" id="editModal" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Edit User</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+
+                                        <label id="editUser" for="inputPassword3" ></label>
+                                        <input  placeholder="test edit" type="text" class="form-control" id="refno"  />
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" id="updateUser" class="btn btn-default" data-dismiss="modal">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+<!-- detail  modal end-->
     <div class="container">
    <div class="table-responsive">
        <table id="orders" class="table table-striped table-bordered table-hover" style="width:100%">
@@ -212,6 +312,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 <th>Route</th>
                 <th>Date</th>
                 <th>Total Amount</th>
+                <th>Action</th>
 
             </tr>
         </thead>

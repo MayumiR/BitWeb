@@ -63,9 +63,9 @@ $connection=(new DBConnection())->getDBConnection();
 //
             $("#Drpt").click(function () {
                 var from = document.getElementById("date1").value;
-                    var to = document.getElementById("date2").value;
+                var to = document.getElementById("date2").value;
 
-                alert(from+' - '+to);
+    
                       $('#orders').DataTable({
 
         "ajax": "getDateWise.php?from=" + from + "&to=" + to,

@@ -8,7 +8,7 @@ $getCustomers = dataFunctions::getCustomers($connection);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Daily |Rpt</title>
+        <title>Customer |Rpt</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -49,16 +49,19 @@ $getCustomers = dataFunctions::getCustomers($connection);
 
 
             $(document).ready(function () {
+                
+//
+            $("#Drpt").click(function () {
 
+                
 
             var table = $('#orders').DataTable();
                     table.destroy();
-            
-//
-            $("#Drpt").click(function () {
+        
+                    var code = document.getElementById("code").value;
+                    //alert(code);
                       $('#orders').DataTable({
-    var code = document.getElementById("code").value;
-    alert(code);
+                       
         "ajax": "getCustomers.php?code="+code,
         "columns": [
             {
@@ -151,7 +154,7 @@ $getCustomers = dataFunctions::getCustomers($connection);
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="#dailyRpt" role="button" id="btnFilter" data-target="#dailyRpt"  data-toggle="modal"><span class="glyphicon glyphicon-leaf"></span> Filter</a>
-                            <u
+                            
                     </li>
 
                 </ul>
@@ -175,7 +178,7 @@ $getCustomers = dataFunctions::getCustomers($connection);
                                                     <label
                                                         for="inputPassword3" >Select Customer</label>
 
-                                                    <select id="rep_code" class="form-control" >
+                                                    <select id="code" class="form-control" >
                                                         <option value="0"> --SELECT-- </option>
                                                         <?php foreach ($getCustomers as $returnrow): ?>
 

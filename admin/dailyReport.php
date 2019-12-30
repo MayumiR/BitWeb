@@ -288,7 +288,7 @@ function ReplaceNumberWithCommas(yourNumber) {
            <?php }?>
         </tbody>
     </table>
-    <!--------------------------------Create Route------------------------------------------------>
+    <!--------------------------------Create daily report details------------------------------------------------>
 <div class="modal fade" id="daily-report-detail" tabindex="-1" role="dialog" aria-labelledby="daily-report-detail" aria-hidden="true">
                        <div class="modal-dialog" role="document">
                            <div class="modal-content">
@@ -334,7 +334,7 @@ function ReplaceNumberWithCommas(yourNumber) {
                            </div>
                        </div>
                    </div>
-<!-- end create Route------------------------------------------------------------------------------------------------------------------>
+<!-- end detail modal------------------------------------------------------------------------------------------------------------------>
 
             </div>
 

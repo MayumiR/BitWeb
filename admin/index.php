@@ -120,7 +120,7 @@ function test(obj){
                $(".userSave").click(function () {
 
                    
-                        // $('#newUser').modal('show');
+                     $('#newUser').modal('show');
                  
                 });
               $(".routes").click(function () {
@@ -135,7 +135,12 @@ function test(obj){
                         $('#newReason').modal('show');
                  
                 });
-                
+                $(".userid").click(function () {
+
+                   
+                $('#usertxn').modal('show');
+
+                });
                 
                  $(".repRoute").click(function () {
 
@@ -487,8 +492,8 @@ function test(obj){
                 "defaultContent": ''
             },
             { "data": "RefNo" },
-            { "data": "CusCode" },
-            { "data": "RouteCode" },
+            { "data": "CusName" },
+            { "data": "RouteName" },
             { "data": "TxnDate" },
             { "data": "TotAmt" },
 //            {"mRender": function (data, type, row) {
@@ -833,17 +838,16 @@ tr.shown td.details-control {
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a href="" role="button" id="userSave" data-target=""  data-toggle="modal" onclick="hideContent(this)"><span class="glyphicon glyphicon-plus"></span> Add User</a>
-                                    </li>
+                                            </li>
                                             <li>
                                                 <a href="#updateUser" role="button" id="updateUser" ><span class="glyphicon glyphicon-edit"></span> Edit User</a>
                                             </li>
-                                           <li>
+                                            <li>
                                              <a href="#assignMac" role="button" id="assignMac" ><span class="glyphicon glyphicon-ok"></span> Assign Mac Address</a>
-                                        </li>
-                                        <li>
-                                          <a href="#deleteUser"  role="button" id="deleteUser" ><span class="glyphicon glyphicon-remove"></span> Delete User</a>
-                                        </li>
-                                                 
+                                            </li>
+                                           <li>
+                                            <a href="#deleteUser"  role="button" id="deleteUser" ><span class="glyphicon glyphicon-remove"></span> Delete User</a>
+                                           </li>   
                                         </ul>
                                     </li>
                                     
@@ -852,53 +856,57 @@ tr.shown td.details-control {
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a href="#newCus" role="button" id="cus" data-target="#newCus"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Customer</a>
-                                    </li>
+                                            </li>
                                             <li>
                                                 <a href="#updateCus" role="button" id="updateCus" ><span class="glyphicon glyphicon-edit"></span> Edit Customer</a>
                                             </li>
-                                           
-                                        <li>
-                                          <a href="#deleteCus"  role="button" id="deleteCus" ><span class="glyphicon glyphicon-remove"></span> Delete Customer</a>
-                                        </li>
-                                                 
+                                            <li>
+                                                <a href="#deleteCus"  role="button" id="deleteCus" ><span class="glyphicon glyphicon-remove"></span> Delete Customer</a>
+                                            </li>    
                                         </ul>
                                     </li>
                                     <li class="dropdown">
                                         <a href="#" id="filterRtRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Route <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                     <a href="#newRt" role="button" id="routes" data-target="#newRt"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Route</a>  </li>
+                                                <a href="#newRt" role="button" id="routes" data-target="#newRt"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Route</a>  
+                                            </li>
                                             <li>
-                                        <a href="#repRoute" role="button" id="rep_route" data-target="#assignRt"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span> Assign Route</a>
-                                    </li>
-                                        <li>
-                                          <a href="#deleteRt"  role="button" id="deleteRt" ><span class="glyphicon glyphicon-remove"></span> Delete Route</a>
-                                        </li>
-                                                 
+                                                <a href="#repRoute" role="button" id="rep_route" data-target="#assignRt"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span> Assign Route</a>
+                                            </li>
+                                            <li>
+                                                <a href="#deleteRt"  role="button" id="deleteRt" ><span class="glyphicon glyphicon-remove"></span> Delete Route</a>
+                                            </li>
                                         </ul>
                                     </li>
                                     <li class="dropdown">
                                         <a href="#" id="filterItemRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Item <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                            <li>
-                                        <a href="#newItem" role="button" id="item" data-target="#newItm"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Item</a>
+                                                <a href="#newItem" role="button" id="item" data-target="#newItm"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Item</a>
                                            </li>
-                                     <li>
-                                        <a href="#updatePrice" role="button" id="price" data-target="#modifyPrice"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span>  Price Allocate</a>
-                                    </li>
-                                        <li>
-                                          <a href="#deletePrice"  role="button" id="deletePrice" ><span class="glyphicon glyphicon-remove"></span> Delete Price</a>
-                                        </li>
-                                                 
+                                            <li>
+                                                <a href="#updatePrice" role="button" id="price" data-target="#modifyPrice"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span>  Price Allocate</a>
+                                            </li>
+                                            <li>
+                                                <a href="#deletePrice"  role="button" id="deletePrice" ><span class="glyphicon glyphicon-remove"></span> Delete Price</a>
+                                            </li>   
                                         </ul>
                                     </li>
                                     
-<li>
+                                    <li>
                                         <a href="#reason" role="button" id="reason" data-target="#newReason"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Reason</a>
                                     </li>
-                                    
-                                   
-                                   
+                                     <li>
+                                        <a href="#usertxn" role="button" id="userid" data-target="#usertxn"  data-toggle="modal"><span class="glyphicon glyphicon-user"></span>USER</a>
+                                    </li>    
+                                    <li>
+                                        <a href="user_transactions.php" role="button" id="usernew" data-target="#usertxn"  data-toggle="modal"><span class="glyphicon glyphicon-user"></span>USER</a>
+                                    </li>                           
+                                    <!-- <li>
+                                        <a href="user_transactions.php" role="button" id="userid" data-target="#usertxn"  data-toggle="modal"><span class="glyphicon glyphicon-user"></span>USER</a>
+                                    </li>     -->
+                                
                                     <li class="dropdown">
                                         <a href="#" id="filterRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
@@ -909,12 +917,11 @@ tr.shown td.details-control {
                                                 <a href="dateWiseReport.php" role="button" id="dateWise" ><span class="glyphicon glyphicon-calendar"></span> Date Wise</a>
                                             </li>
                                            <li>
-                                             <a href="customerReport.php" role="button" id="customers" ><span class="glyphicon glyphicon-calendar"></span> Customer Wise</a>
-                                        </li>
-                                        <li>
-                                          <a href="routewise.php"  role="button" id="route" ><span class="glyphicon glyphicon-calendar"></span> Route Wise</a>
-                                        </li>
-                                                 
+                                                <a href="customerReport.php" role="button" id="customers" ><span class="glyphicon glyphicon-calendar"></span> Customer Wise</a>
+                                            </li>
+                                            <li>
+                                                <a href="routewise.php"  role="button" id="route" ><span class="glyphicon glyphicon-calendar"></span> Route Wise</a>
+                                            </li>   
                                         </ul>
                                     </li>
 
@@ -1335,6 +1342,193 @@ tr.shown td.details-control {
                             </div>
                         </div>
  <!-- end create Reason------------------------------------------------------------------------------------------------------------------>
+                             <!--------------------------------user transactions------------------------------------------------>
+<div class="modal fade" id="usertxn" tabindex="-1" role="dialog" aria-labelledby="usertxn" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Sales Representative</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                    <ul class="nav nav-tabs" role="tablist">
+								            <li><a data-toggle="tab" href="#newrep">New Sales Representative</a></li>
+								            <li><a data-toggle="tab" href="#regrep">Registered Sales Representatives</a></li>								
+							        </ul>	  
+                                    <div class="tab-content">
+                                    <div id="newrep" class="tab-pane fade">
+								<div id="table" class="table-editable" style="width: auto;">	
+
+									<table  class="table table-bordered table-responsive-md table-striped text-center" id="mytable">
+										<thead>
+								          	<tr >
+									            <th  class="text-center">Name                     </th>
+									            <th  class="text-center">Address</th>
+                                                <th  class="text-center">User Name</th>
+                                                <th  class="text-center">Password</th>
+                                                <th  class="text-center">Confirm Password</th>
+									            <th  class="text-center">Mobile</th>
+									            <th  class="text-center">Action</th>
+									            <th > <button type="button" id="rowAddBtn" name="rowAddBtn" class="btn btn-success btn-sm rowAddBtn"><span class="glyphiocon glyphicon-plus" ></span></button></th>	
+
+								          	</tr>
+								        </thead>	         	
+							        	 
+							      	</table>
+	  							</div>
+
+	  							<script>
+
+							    	$(document).ready(function(){
+							    		const $tableID = $('#mytable');
+							    		var RepAddress ="", RepName = "", RepPwd = "", RepCpwd = "", RepMobile = "", RepPrefix = "",RepUName = "",code = "";
+							    		$(document).on('click','.rowAddBtn', function(){
+							    			var html = '';
+							    			html += '<tr>';
+							    			html += '<td style="width: 400px;"><input type="text1" class="form-control" id="rep_name"  name="rep_name" placeholder="Name"></td>';
+
+							    			html += '<td style="width: 400px;"><input type="text1" class="form-control" id="rep_address" name="rep_address" placeholder="Address"></td>';	
+
+											html += '<td><input type="text1" class="form-control" id="rep_uname"  name="rep_uname" placeholder="User Name"></td>';
+							    			html += '<td><input type="password" class="form-control" id="rep_pwd"  name="rep_pwd" placeholder="Password"></td>';
+                                            html += '<td><input type="password" class="form-control" id="rep_cpwd"  name="rep_cpwd" placeholder="Confirm Password"></td>';
+                                            html += '<td><input type="number" class="form-control" id="rep_mobile"  name="rep_mobile" placeholder="Mobile"></td>';
+                                            
+							    			html += '<td><button type="button" id = "btnSaveUser" name="btnSaveUser" class="btn btn-sm suplierAdd" onclick=""><span class="glyphiocon glyphicon-plus"></td>';
+
+							    			html += '<td><button type="Button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+
+							    			$('#mytable').append(html);	
+
+                                            RepName = document.getElementById("rep_name").value;
+                                            RepAddress = document.getElementById("rep_address").value;0
+                                            RepPwd = document.getElementById("rep_pwd").value;
+                                            RepCpwd = document.getElementById("rep_cpwd").value;
+                                            RepMobile = document.getElementById("rep_mobile").value;
+                                            RepPrefix = document.getElementById("prefix").value;
+                                            RepUName = document.getElementById("rep_uname").value;
+                                            code = RepPrefix+RepMobile;
+							    		
+							    			//disable new row add for prevent add new row
+							    			document.getElementById("rowAddBtn").disabled = true;
+
+							    		});						
+							    			
+
+										$(document).on('click', '.btnSaveUser', function(){
+                                            console.log("tbl data : ");	
+                   
+                
+                   alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
+
+                    if (RepMobile == "" || RepUName == "" || RepAddress == "" || RepPwd == "" || RepMobile == "" || RepPrefix == "") {
+
+                        $(".alert").removeClass("in").show();
+                        $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
+                    }else{
+                        if (RepPwd.trim() === RepCpwd.trim()) {
+                            
+                            if(RepPrefix.length == 2){
+                              $.post("saveUser.php", {
+
+                                name: RepName,
+                                address: RepAddress,
+                                pwd: RepPwd,
+                                mobile: RepMobile,
+                                prefix: RepPrefix,
+                                uname: RepUName,
+                                code: code
+
+                            }, function (data) {
+                               // alert(data);
+                                if (data == 200) {
+                                    //    alert("Task Saved");
+                                    swal("User Saved");
+                                   // window.location.href = 'admin/index.php';
+                                    $('#newUser').modal('hide');
+                                     window.location.href = 'index.php';
+                                } else if(data == 400){
+                                    // alert("Task not Saved");
+                                    swal("User not Saved");
+
+                                }else{
+                                   // alert(data);
+                                    
+                                    swal("Invalid mobile number");
+                                }
+
+                            });
+                            }else{
+                            
+                                swal("Prefix length should be 2");
+                            }
+                        
+            }else {
+
+                swal("Password didn't match with confirm password");
+            }
+
+            }										
+											// 	console.log("tbl data : " + rtComboVal.value+" : "+ idTxtVal.value+" : "+ nmTxtVal.value);
+
+											// if((rtComboVal.value != "" && rtComboVal.value != null) &&(idTxtVal.value != "" && idTxtVal.value != null) && (nmTxtVal.value != "" && nmTxtVal.value != null) ){
+											// 	console.log("if data : " + rtComboVal.value +" : "+ idTxtVal.value+" : "+ nmTxtVal.value);
+
+											// 	rtComboVal.value = "";
+											// 	idTxtVal.value = "";
+											// 	nmTxtVal.value = "";
+
+											// }	
+										});
+
+										$tableID.on('click', '.remove', function(){			
+										console.log('remove btn');								
+												$(this).parents('tr').detach();
+										});
+							    	});
+					    		</script> 								
+							</div><!-- close newrep-->
+
+                            <div id="regrep" class="tab-pane fade">
+								<div id="table" class="table-editable" style="width: auto;">	
+									<div><input type="text1" class="form-control" id="searchTxtsupNm" name="searchTxtsupNm" placeholder="Search here..."></div>
+
+										<table  class="table table-bordered table-responsive-md table-striped text-center" id="mytable">
+											<thead>
+									          	<tr >
+										            <th  class="text-center">Name</th>
+										            <th  class="text-center">Address</th>
+										            <th  class="text-center">Mobile</th>
+										            <th  class="text-center">Action</th>
+									          	</tr>
+									        </thead>
+
+								        	 
+								      	</table>
+	  							</div>	
+							</div><!-- close regrep-->
+						
+
+                                    </div><!-- close tab-content-->
+
+                                    </div><!-- close modal-body-->
+
+                                    <div class="modal-footer">
+                                        <div class="span pull-left">
+                                            <div class="alert alert-danger fade">
+                                                <button type="button" class="close" data-dismiss="alert">Ã—</button>
+                                                <strong id="error">Alert!</strong> Please fill all fields.
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-info"  data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                        <button id="saveReason" type="button" value="saveReason" class="btn btn-primary">Save</button>
+                                    </div>
+                                </div>   
+                            </div>
+                        </div>
+ <!-- end user------------------------------------------------------------------------------------------------------------------>
+                
+                         
                          <!--------------------------------Add item------------------------------------------------>
 <div class="modal fade" id="newItm" tabindex="-1" role="dialog" aria-labelledby="newItm" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -1461,7 +1655,7 @@ tr.shown td.details-control {
                         </div>
  <!-- end price update------------------------------------------------------------------------------------------------------------------>
 
-                
+ 
                    
                     <div class="container">    
    <div class="table-responsive">
