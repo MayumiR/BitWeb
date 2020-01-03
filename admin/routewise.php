@@ -50,7 +50,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                         {"mRender": function (data, type, row) {
 
                                    // var res = '<button class="btn btn-primary btn-xs"><span class="glyphicon  glyphicon-remove" aria-hidden="true"></span></button>';
-                                   return "<button class='btn btn-primary btn-xs' href='##editModal'  data-toggle='modal' data-target='#editModal' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
+                                   return "<button class='btn btn-primary btn-xs' href='#editModal'  data-toggle='modal' data-target='#editModal' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
                                   // return res;
                                }
                         }
@@ -67,9 +67,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
         //sample for edit user
         $('#orders').on('click', 'button', function () {
 
-var data = $('#orders').DataTable().row($(this).closest('tr')).data();
+            var data = $('#orders').DataTable().row($(this).closest('tr')).data();
 
-var refno = data.RefNo;
+            var refno = data.RefNo;
 
 
 // FOR ADMIN -------------------------------------------------------------------

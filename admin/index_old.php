@@ -21,165 +21,101 @@ $getItems = dataFunctions::getItems($connection);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!-- Bootstrap Core CSS -->
+          <!-- Bootstrap Core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!--        <link href="../vendor/bootstrap/css/bootstrap.min.css.map" rel="stylesheet" type="text/css"/>-->
+        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.12.0/moment.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-        <link href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.datatables.net/fixedcolumns/3.2.3/js/dataTables.fixedColumns.min.js"></script>
+        <link href="../lib/sweetalert.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+
+        <script src="../lib/sweetalert.js" type="text/javascript"></script>
+        <script src="../lib/sweetalert.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="../vendor/datatables/js/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script> -->
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        
 
         <script type="text/javascript">
             
+               function format ( d ) {
+    // `d` is the original data object for the row
+  // window.location.href = 'dailyReport.php';
+
+     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Customer:</td>'+
+            '<td>'+d.CusName+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Route:</td>'+
+            
+            '<td>'+d.RouteName+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            ' <td><button id="'+d.RefNo+'" name="testbtn" onclick = "test(this.id)">view details</button></td>'+
+        '</tr>'+
+    '</table>';
+    
+}
+
+
+function alert_open(link){
+   
+artWindow=window.open(link,"ara14",'toolbar=0,location=0,directories=0,status=0,menubar=1,scrollbars=yes,resize=yes,width=700,height=350,left=40,top=40');
+ }
+function test(obj){
+    //alert(123);
+ 
+    alert_open('/SFA/admin/order_detail.php?refno='+obj);
+     //alert_open('/SFA/admin/viewOrder.php?refno='+obj);
+
+    
+//return "<table cellpadding=\"5\" cellspacing=\"0\" border=\"0\" style=\"padding-left:50px;\">"+
+//          <?php
+            /*$getRoutes = dataFunctions::getRoutes($connection);
+            if(count($getRoutes) > 0)
+                 foreach($getRoutes as $returnrow):*/ ?>// 
+//            
+//            
+//               "<tr><td>"+<?php //echo "123" ;//; ?>+"</td><td>"+<?php //echo "456";//$returnrow->name; ?>+"</td></tr>"+
+//                   <?php //endforeach; ?>"</table>";
+   //$('#newUser').modal('show');
+    //$('#newUser').modal('show');
+}
+
              $(document).ready(function () {
                  
-                 //main order table
-                var table = $('#orders').DataTable( {
-        "ajax": "getOrders.php",
-        "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "RefNo" },
-            { "data": "CusName" },
-            { "data": "RouteName" },
-            { "data": "TxnDate" },
-            { "data": "TotAmt" },
-           {"mRender": function (data, type, row) {
+//                   $(function(){
+//    $('button[name=testbtn]').click(function(){
+//        console.log(llll);
+//        var id= $(this).attr("id");
+//        //some action here
+//        //
+//        alert(id);
+//        //ex:
+//        window.location.href="index.php";
+//        //or an ajax fungtion
+//    });
+//});
 
-                        return "<button class='btn btn-primary btn-xs' href='#usertxn'  data-toggle='modal' data-target='#usertxn' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
-                                  
-                               }
-                           }
-        ],
-        "order": [[1, 'asc']],
-        dom: 'Bfrtip',
-                            buttons: [
-                                'copy', 'excel', 'pdf', 'print'
-                            ]
-    } );
-    //when main order table , view button click event
+  
+//   $("#btnAddUsr").click(function () {
+//      // alert(123);
+//     document.getElementById("usr_contnt").style.visibility = "visible";
+//    // $('#newUser').modal('show');
 
-    $('#orders').on('click', 'button', function () {
-
-        var data = $('#orders').DataTable().row($(this).closest('tr')).data();
-
-        var refno = data.RefNo;
-
-        $("#refnofortitle").text("Details Of Order RefNo - "+refno);
-
-     //detail table show
-
-        var table = $('#detailtable').DataTable( {
-        "ajax": "getOrders.php",
-        "columns": [
-            {
-                "className":      'details-control',
-                "orderable":      false,
-                "data":           null,
-                "defaultContent": ''
-            },
-            { "data": "RefNo" },
-            { "data": "CusName" },
-            { "data": "RouteName" },
-            { "data": "TxnDate" },
-            { "data": "TotAmt" }
-        
-        ],
-        "order": [[1, 'asc']]
-    } );
-    
-// FOR ADMIN -------------------------------------------------------------------
-// if (userCode == '002') {
-//     var r = confirm("Are you sure to remove this Task?");
-//     if (r == true) {
-
-//         $.post("removeTask.php", {
-//             jobno: job_no,
-//             taskId: task_no
-//         }, function (data) {
-
-//             if (data == 200) {
-//                 alert("Task removed");
-//                 window.location.href = 'home.php';
-//             } else {
-//                 alert("Deleting Task Failed!");
-//             }
-
-//         });
-//     }
-// } else if (ACT_HRS == null && type == '1' && userName == all_to) { // for normal user--------------
-//     var r = confirm("Are you sure to remove this Task?");
-//     if (r == true) {
-
-//         $.post("removeTask.php", {
-//             jobno: job_no,
-//             taskId: task_no
-//         }, function (data) {
-
-
-
-//             if (data == 200) {
-//                 alert("Task removed");
-//                 window.location.href = 'home.php';
-//             } else {
-//                 alert("Deleting Task Failed!");
-//             }
-
-//         });
-
-//     }
-// } else if (type == '3' && ACT_HRS == null) {//-----for PM
-//     var r = confirm("Are you sure to remove this Task?");
-//     if (r == true) {
-
-//         $.post("removeTask.php", {
-//             jobno: job_no,
-//             taskId: task_no
-//         }, function (data) {
-
-
-
-//             if (data == 200) {
-//                 alert("Task removed");
-//                 window.location.href = 'home.php';
-//             } else {
-//                 alert("Deleting Task Failed!");
-//             }
-
-//         });
-//     }
-// } else if (All_By == userName && ACT_HRS == null) {
-//     var r = confirm("Are you sure to remove this Task?");
-//     if (r == true) {
-
-//         $.post("removeTask.php", {
-//             jobno: job_no,
-//             taskId: task_no
-//         }, function (data) {
-
-
-
-//             if (data == 200) {
-//                 alert("Task removed");
-//                 window.location.href = 'home.php';
-//             } else {
-//                 alert("Deleting Task Failed!");
-//             }
-
-//         });
-//     }
-// } else {
-//     alert("You are not Athorized to Remove this Task!");
-// }
-});
-
+// });
 
                $(".userSave").click(function () {
 
@@ -288,7 +224,7 @@ $getItems = dataFunctions::getItems($connection);
             }
      });
 // save item
-                $("#saveItem").click(function () {
+ $("#saveItem").click(function () {
                     var ItemCode = document.getElementById("item_code").value;
                     var ItemName = document.getElementById("item_name").value;
                     var Uom = document.getElementById("uom").value;
@@ -320,11 +256,15 @@ $getItems = dataFunctions::getItems($connection);
                                 }
 
                             });
-                        }
-                     });
+                           
+                        
+          
+
+            }
+     });
      //end save item
      //// price allocate
-                    $("#savePrice").click(function () {
+ $("#savePrice").click(function () {
                     var ItemCode = document.getElementById("itm_code").value;
                     var price = document.getElementById("al_price").value;
                    
@@ -354,13 +294,18 @@ $getItems = dataFunctions::getItems($connection);
 
                                 }
 
-                            });   
-                        }
-                    });
+                            });
+                           
+                        
+          
+
+            }
+     });
 // assign route 
-                $("#saveRR").click(function () {
+ $("#saveRR").click(function () {
                     var RepCode = document.getElementById("rep_code").value;
                     var RouteCode = document.getElementById("route_code_ar").value;
+                   
                 
                    //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
 
@@ -390,9 +335,12 @@ $getItems = dataFunctions::getItems($connection);
                                 }
 
                             });
+                           
                         
-                        }
-                     });
+          
+
+            }
+     });
                
 //save route......
 
@@ -400,6 +348,7 @@ $getItems = dataFunctions::getItems($connection);
                     var RouteCode = document.getElementById("route_code").value;
                     var RouteName = document.getElementById("route_name").value;
                    
+                
                    //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
 
                     if (RouteCode == "" || RouteName == "") {
@@ -428,14 +377,19 @@ $getItems = dataFunctions::getItems($connection);
                                 }
 
                             });
-                        }
-                    });
+                           
+                        
+          
+
+            }
+     });
       //save reason......
           $("#saveReason").click(function () {
                     var Code = document.getElementById("reason_code").value;
                     var Name = document.getElementById("reason_name").value;
                     var Type = document.getElementById("reason_type").value;
                    
+                
                    //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
 
                     if (Code == "" || Name == "" || Type == "0") {
@@ -458,14 +412,19 @@ $getItems = dataFunctions::getItems($connection);
                                     swal("Reason Saved");
                                     window.location.href = 'index.php';
                                     
+
                                 } else {
                                     // alert("Task not Saved");
                                     swal("Reason not Saved");
 
                                 }
                             });
-                        }
-                    });
+                           
+                        
+          
+
+            }
+     });
       //close save route       
 //save customer......
 
@@ -514,21 +473,132 @@ $getItems = dataFunctions::getItems($connection);
                                     swal("Invalid mobile number");
                                 
                                 }
-                            });    
-                        }
-                    });
-
-        //edit button click event
-
-        $(document).on('click', '.edit', function()
-        {
-            alert(1234);
-        });
 
 
-});// doc.ready function close
+                            });
+                           
+            }
+     });
+  
+ 
 
-               
+    var table = $('#orders').DataTable( {
+        "ajax": "getOrders.php",
+        "columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           null,
+                "defaultContent": ''
+            },
+            { "data": "RefNo" },
+            { "data": "CusName" },
+            { "data": "RouteName" },
+            { "data": "TxnDate" },
+            { "data": "TotAmt" },
+//            {"mRender": function (data, type, row) {
+//
+//                                    return "<button class='btn btn-primary btn-xs' href='#'  data-toggle='modal' data-target='#' ><span class='glyphicon  glyphicon-pencil' aria-hidden='true'></button>  <a href='#' id='remove' role='button' class='btn btn-danger btn-xs'><span class='glyphicon  glyphicon-remove' aria-hidden='true'></span></a>"
+//
+//                                }
+//                            }
+        ],
+        "order": [[1, 'asc']]
+    } );
+     
+    // Add event listener for opening and closing details
+    $('#orders tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+
+
+//edit button click event
+
+// $("#edit").click(function ()
+// {
+//     alert(1234);
+// });
+
+//alert(1234);
+
+$(document).on('click', '.edit', function()
+{
+    alert(1234);
+});
+
+                });// doc.ready function close
+
+                function hideContent()
+                {
+                    document.getElementById('usr_contnt').style.visibility = 'hidden';
+                    $('#newUser').modal('show');
+                   // $("#user_table").destroy();
+                  
+                    var users = <?php echo json_encode($getUsers) ?>;
+                    var table = document.getElementById('user_table');
+                   table.innerHTML = "";
+                    var row1 = document.createElement("TR");
+                    var col1 = document.createElement("TH");
+                    col1.innerHTML = "CODE";
+                    var col2 = document.createElement("TH");
+                    col2.innerHTML = "NAME";
+                    var col3 = document.createElement("TH");
+                    col3.innerHTML = "EDIT";
+                    row1.appendChild(col1);
+                    row1.appendChild(col2);
+                    row1.appendChild(col3);
+                    table.appendChild(row1);
+                   
+                    for(var i= 0; i< users.length; i++)
+                    {
+                        var row2 = document.createElement("TR");
+                        var col21 = document.createElement("TD");
+                        col21.innerHTML = users[i].code;
+                        var col22 = document.createElement("TD");
+                        col22.innerHTML = users[i].name;
+                        
+                        //var button = '<button type="button" name="update" id="update" class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn btn-primary btn-sm update"><i class="material-icons md-dark pmd-sm">edit</i></button>';
+                       var button = document.createElement('input');
+                       button.setAttribute('type','button');
+                       button.setAttribute("id","edit");
+                       button.setAttribute("name","edit");
+                    //    button.setAttribute('class','material-icons md-dark pmd-sm');
+                    //    button.setAttribute("style","background-image: {images/icon_minus.png};");
+                    //    button.setAttribute('style.backgound','images/icon_minus.png');
+                    //    button.innerHTML('images/icon_minus.png');
+                        row2.appendChild(col21);
+                        row2.appendChild(col22); 
+                        row2.appendChild(button); 
+                        table.appendChild(row2);
+
+                                       
+                        
+                    }
+
+
+                }
+
+                function showContent(){
+                  document.getElementById('usr_contnt').style.visibility = "visible";
+                }
+
+                function close_dialog(){
+                    alert(123);
+                 $('#newUser').modal('hide');
+                }
+                
         </script>
         <style>
             @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
@@ -539,15 +609,26 @@ $getItems = dataFunctions::getItems($connection);
                 padding: 0px;
                 margin-bottom: 0;     
             }
-            .dataTables_filter {
-                display: none;
-            }
             .container{
                 width: 100%;
                 padding: 5px;
 
             }
+
+            #edit
+           {
+               background-image: url('../images/icon_minus.png');
+               width:10px;
+               height:10px;
+           }
             
+   td.details-control {
+    background: url('../images/text-plus-icon.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('../images/Math-minus-icon.png') no-repeat center center;
+}
             html, body {
                 max-width: 100%;
                 overflow-x: hidden;
@@ -597,10 +678,145 @@ $getItems = dataFunctions::getItems($connection);
                 padding: 5px 0;
 
             }
-        </style>   
-    </head>
+            /*tr,th{
+                            padding: 1px;
+                            color: #000;
+                            width: 10px;
+                            background: #afd9ee;
+                            border: 1px solid #000000;
+                            border-bottom-width: 1px;
+                            font-size: 12px;
+            
+                        }*/
+            dataTables-tr{
 
-    <body>
+                height: 15px;
+            }
+            .dataTables_wrapper {
+                position: relative;
+                clear: both;
+                *zoom: 1;
+                zoom: 1; }
+            .dataTables_wrapper .dataTables_length {
+                float: left; }
+            .dataTables_wrapper .dataTables_filter {
+                float: right;
+                text-align: right; }
+            .dataTables_wrapper .dataTables_filter input {
+                margin-left: 0.5em; }
+            .dataTables_wrapper .dataTables_info {
+                clear: both;
+                float: left;
+                padding-top: 0.755em; }
+
+            .dataTables_wrapper .dataTables_paginate {
+                float: right;
+                text-align: right;
+                padding-top: 0.25em; }
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                box-sizing: border-box;
+                display: inline-block;
+                min-width: 1.5em;
+                padding: 0.5em 1em;
+                margin-left: 2px;
+                text-align: center;
+                text-decoration: none !important;
+                cursor: pointer;
+                *cursor: hand;
+                color: #333333 !important;
+                border: 1px solid transparent;
+                border-radius: 2px; }
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+                color: #333333 !important;
+                border: 1px solid #979797;
+                background-color: white;
+
+                .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+                    cursor: default;
+                    color: #666 !important;
+                    border: 1px solid transparent;
+                    background: transparent;
+                    box-shadow: none; }
+                .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                    color: white !important;
+                    border: 1px solid #111111;
+                    background-color: #585858;
+
+                    .dataTables_wrapper .dataTables_paginate .paginate_button:active {
+                        outline: none;
+                        background-color: #2b2b2b;
+
+                        box-shadow: inset 0 0 3px #111; }
+                    .dataTables_wrapper .dataTables_paginate .ellipsis {
+                        padding: 0 1em; }
+
+                    .dataTables_wrapper .dataTables_processing {
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        width: 100%;
+                        height: 40px;
+                        margin-left: -50%;
+                        margin-top: -25px;
+                        padding-top: 20px;
+                        text-align: center;
+                        font-size: 1.2em;
+                        background-color: white;
+                        background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(123, 210, 232, 0)), color-stop(25%, rgba(123, 210, 232, 0.9)), color-stop(75%, rgba(123, 210, 232, 0.9)), color-stop(100%, rgba(255, 255, 255, 0)));
+                        background: -webkit-linear-gradient(left, rgba(123, 210, 232, 0) 0%, rgba(123, 210, 232, 0.9) 25%, rgba(123, 210, 232, 0.9) 75%, rgba(123, 210, 232, 0) 100%);
+                        background: -moz-linear-gradient(left, rgba(123, 210, 232, 0) 0%, rgba(123, 210, 232, 0.9) 25%, rgba(123, 210, 232, 0.9) 75%, rgba(123, 210, 232, 0) 100%);
+                        background: -ms-linear-gradient(left, rgba(123, 210, 232, 0) 0%, rgba(123, 210, 232, 0.9) 25%, rgba(123, 210, 232, 0.9) 75%, rgba(123, 210, 232, 0) 100%);
+                        background: -o-linear-gradient(left, rgba(123, 210, 232, 0) 0%, rgba(123, 210, 232, 0.9) 25%, rgba(123, 210, 232, 0.9) 75%, rgba(123, 210, 232, 0) 100%);
+                        background: linear-gradient(to right, rgba(123, 210, 232, 0) 0%, rgba(123, 210, 232, 0.9) 25%, rgba(123, 210, 232, 0.9) 75%, rgba(123, 210, 232, 0) 100%); }
+                    .dataTables_wrapper .dataTables_length,
+                    .dataTables_wrapper .dataTables_filter,
+                    .dataTables_wrapper .dataTables_info,
+                    .dataTables_wrapper .dataTables_processing,
+                    .dataTables_wrapper .dataTables_paginate {
+                        color: #333333; }
+                    .dataTables_wrapper .dataTables_scroll {
+                        clear: both; }
+
+                    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+                        *margin-top: -1px;
+                        -webkit-overflow-scrolling: touch; }
+                    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td {
+                        vertical-align: middle; }
+
+                    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th > div.dataTables_sizing,
+                    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th > div.dataTables_sizing,
+                    .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td > div.dataTables_sizing {
+                        height: 0;
+                        overflow: hidden;
+                        margin: 0 !important;
+
+                        .dataTables_wrapper.no-footer .dataTables_scrollBody {
+                            border-bottom: 1px solid #111111; }
+                        .dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable,
+                        .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {
+                            border-bottom: none; }
+
+                        .dataTables_wrapper:after {
+                            visibility: hidden;
+                            display: block;
+                            content: "";
+                            clear: both;
+                            height: 0; 
+                        }
+
+
+                        .select-boxes {
+                            height: 100px !important;
+                            width:280px;
+                        }
+
+
+
+
+                    </style>   
+                </head>
+
+                <body>
 
                     <div class="wrapper">
                         <div class="navbar navbar-inverse navbar-static-top" role="navigation">
@@ -1132,33 +1348,181 @@ $getItems = dataFunctions::getItems($connection);
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="refnofortitle">Details of order refno </h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Sales Representative</h5>
                                     </div>
                                     <div class="modal-body">
-                                   
-<table  class="table table-striped table-bordered table-hover" id="detailtable" style="width:100%">
-    <thead>
-          <tr >
-            <!-- <th  class="text-center">Item</th>
-            <th  class="text-center">Quantity</th>
-            <th  class="text-center">Price(Rs.)</th>
-            <th  class="text-center">Amount</th> -->
-            <th></th>
-                <th>RefNo</th>
-                <th>Customer</th>
-                <th>Route</th>
-                <th>Date</th>
-                <th>Total Amount</th>
-            
-          </tr>
-    </thead>	         	
-     
-  </table>
+                                    <ul class="nav nav-tabs" role="tablist">
+								            <li><a data-toggle="tab" href="#newrep">New Sales Representative</a></li>
+								            <li><a data-toggle="tab" href="#regrep">Registered Sales Representatives</a></li>								
+							        </ul>	  
+                                    <div class="tab-content">
+                                    <div id="newrep" class="tab-pane fade">
+								<div id="table" class="table-editable" style="width: auto;">	
 
+									<table  class="table table-bordered table-responsive-md table-striped text-center" id="mytable">
+										<thead>
+								          	<tr >
+									            <th  class="text-center">Name                     </th>
+									            <th  class="text-center">Address</th>
+                                                <th  class="text-center">User Name</th>
+                                                <th  class="text-center">Password</th>
+                                                <th  class="text-center">Confirm Password</th>
+									            <th  class="text-center">Mobile</th>
+									            <th  class="text-center">Action</th>
+									            <th > <button type="button" id="rowAddBtn" name="rowAddBtn" class="btn btn-success btn-sm rowAddBtn"><span class="glyphiocon glyphicon-plus" ></span></button></th>	
+
+								          	</tr>
+								        </thead>	         	
+							        	 
+							      	</table>
+	  							</div>
+
+	  							<script>
+
+							    	$(document).ready(function(){
+							    		const $tableID = $('#mytable');
+							    		var RepAddress ="", RepName = "", RepPwd = "", RepCpwd = "", RepMobile = "", RepPrefix = "",RepUName = "",code = "";
+							    		$(document).on('click','.rowAddBtn', function(){
+							    			var html = '';
+							    			html += '<tr>';
+							    			html += '<td style="width: 400px;"><input type="text1" class="form-control" id="rep_name"  name="rep_name" placeholder="Name"></td>';
+
+							    			html += '<td style="width: 400px;"><input type="text1" class="form-control" id="rep_address" name="rep_address" placeholder="Address"></td>';	
+
+											html += '<td><input type="text1" class="form-control" id="rep_uname"  name="rep_uname" placeholder="User Name"></td>';
+							    			html += '<td><input type="password" class="form-control" id="rep_pwd"  name="rep_pwd" placeholder="Password"></td>';
+                                            html += '<td><input type="password" class="form-control" id="rep_cpwd"  name="rep_cpwd" placeholder="Confirm Password"></td>';
+                                            html += '<td><input type="number" class="form-control" id="rep_mobile"  name="rep_mobile" placeholder="Mobile"></td>';
+                                            
+							    			html += '<td><button type="button" id = "btnSaveUser" name="btnSaveUser" class="btn btn-sm suplierAdd" onclick=""><span class="glyphiocon glyphicon-plus"></td>';
+
+							    			html += '<td><button type="Button" name="remove" class="btn btn-danger btn-sm remove"><span class="glyphicon glyphicon-minus"></span></button></td></tr>';
+
+							    			$('#mytable').append(html);	
+
+                                            RepName = document.getElementById("rep_name").value;
+                                            RepAddress = document.getElementById("rep_address").value;0
+                                            RepPwd = document.getElementById("rep_pwd").value;
+                                            RepCpwd = document.getElementById("rep_cpwd").value;
+                                            RepMobile = document.getElementById("rep_mobile").value;
+                                            RepPrefix = document.getElementById("prefix").value;
+                                            RepUName = document.getElementById("rep_uname").value;
+                                            code = RepPrefix+RepMobile;
+							    		
+							    			//disable new row add for prevent add new row
+							    			document.getElementById("rowAddBtn").disabled = true;
+
+							    		});						
+							    			
+
+										$(document).on('click', '.btnSaveUser', function(){
+                                            console.log("tbl data : ");	
+                   
+                
+                   alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
+
+                    if (RepMobile == "" || RepUName == "" || RepAddress == "" || RepPwd == "" || RepMobile == "" || RepPrefix == "") {
+
+                        $(".alert").removeClass("in").show();
+                        $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
+                    }else{
+                        if (RepPwd.trim() === RepCpwd.trim()) {
+                            
+                            if(RepPrefix.length == 2){
+                              $.post("saveUser.php", {
+
+                                name: RepName,
+                                address: RepAddress,
+                                pwd: RepPwd,
+                                mobile: RepMobile,
+                                prefix: RepPrefix,
+                                uname: RepUName,
+                                code: code
+
+                            }, function (data) {
+                               // alert(data);
+                                if (data == 200) {
+                                    //    alert("Task Saved");
+                                    swal("User Saved");
+                                   // window.location.href = 'admin/index.php';
+                                    $('#newUser').modal('hide');
+                                     window.location.href = 'index.php';
+                                } else if(data == 400){
+                                    // alert("Task not Saved");
+                                    swal("User not Saved");
+
+                                }else{
+                                   // alert(data);
+                                    
+                                    swal("Invalid mobile number");
+                                }
+
+                            });
+                            }else{
+                            
+                                swal("Prefix length should be 2");
+                            }
+                        
+            }else {
+
+                swal("Password didn't match with confirm password");
+            }
+
+            }										
+											// 	console.log("tbl data : " + rtComboVal.value+" : "+ idTxtVal.value+" : "+ nmTxtVal.value);
+
+											// if((rtComboVal.value != "" && rtComboVal.value != null) &&(idTxtVal.value != "" && idTxtVal.value != null) && (nmTxtVal.value != "" && nmTxtVal.value != null) ){
+											// 	console.log("if data : " + rtComboVal.value +" : "+ idTxtVal.value+" : "+ nmTxtVal.value);
+
+											// 	rtComboVal.value = "";
+											// 	idTxtVal.value = "";
+											// 	nmTxtVal.value = "";
+
+											// }	
+										});
+
+										$tableID.on('click', '.remove', function(){			
+										console.log('remove btn');								
+												$(this).parents('tr').detach();
+										});
+							    	});
+					    		</script> 								
+							</div><!-- close newrep-->
+
+                            <div id="regrep" class="tab-pane fade">
+								<div id="table" class="table-editable" style="width: auto;">	
+									<div><input type="text1" class="form-control" id="searchTxtsupNm" name="searchTxtsupNm" placeholder="Search here..."></div>
+
+										<table  class="table table-bordered table-responsive-md table-striped text-center" id="mytable">
+											<thead>
+									          	<tr >
+										            <th  class="text-center">Name</th>
+										            <th  class="text-center">Address</th>
+										            <th  class="text-center">Mobile</th>
+										            <th  class="text-center">Action</th>
+									          	</tr>
+									        </thead>
+
+								        	 
+								      	</table>
+	  							</div>	
+							</div><!-- close regrep-->
+						
+
+                                    </div><!-- close tab-content-->
 
                                     </div><!-- close modal-body-->
 
-                                   
+                                    <div class="modal-footer">
+                                        <div class="span pull-left">
+                                            <div class="alert alert-danger fade">
+                                                <button type="button" class="close" data-dismiss="alert">Ã—</button>
+                                                <strong id="error">Alert!</strong> Please fill all fields.
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-info"  data-dismiss="modal" aria-hidden="true">Cancel</button>
+                                        <button id="saveReason" type="button" value="saveReason" class="btn btn-primary">Save</button>
+                                    </div>
                                 </div>   
                             </div>
                         </div>
@@ -1304,7 +1668,6 @@ $getItems = dataFunctions::getItems($connection);
                 <th>Route</th>
                 <th>Date</th>
                 <th>Total Amount</th>
-                <th>Action</th>
           
             </tr>
         </thead>
@@ -1342,17 +1705,19 @@ $getItems = dataFunctions::getItems($connection);
 
                 </table>-->
             </div>
-            <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+                        
+                    </div>
+
+              <script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
-
+        
                     <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-                    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>    
-                    </div>
+                    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
 
              
             </body>
