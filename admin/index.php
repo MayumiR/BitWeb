@@ -617,7 +617,7 @@ $getItems = dataFunctions::getItems($connection);
 
                             <div class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
-                                    <li class="dropdown">
+                                    <!-- <li class="dropdown">
                                         <a href="#" id="filterUserRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> User <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li>
@@ -633,8 +633,11 @@ $getItems = dataFunctions::getItems($connection);
                                             <a href="#deleteUser"  role="button" id="deleteUser" ><span class="glyphicon glyphicon-remove"></span> Delete User</a>
                                            </li>   
                                         </ul>
+                                    </li> -->
+                                    <li>
+                                        <a href="user_transactions.php" role="button" id="usernew" <span class="glyphicon glyphicon-plus"></span> User Transactions</a>
                                     </li>
-                                    
+                                   
                                     <li class="dropdown">
                                         <a href="#" id="filterCusRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> Customer <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
