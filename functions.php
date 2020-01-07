@@ -53,6 +53,83 @@ class dataFunctions {
          //echo $sql;
     }
     }
+
+    // public static function removeUser($connection,$param){
+                  
+    //     $sql_remove ="DELETE FROM User Where Code = '$param'";
+    //     $result = mysqli_query($connection,$sql_remove) or die(mysqli_error($connection));
+       
+    //         if($result == true){
+    //             echo '200';
+    //         }else{
+    //             echo '400';
+    //         }    
+    //     }
+
+        public static function removeTxn($connection,$param,$txn){
+                  if($txn == 'usertxn'){
+                    //$sql_remove ="DELETE FROM User Where Code = '$param'";
+                    $sql_remove ="Update User SET Status = '0' Where Code = '$param'";
+                  }else if($txn == 'customertxn'){
+                    //$sql_remove ="DELETE FROM Customer Where cuscode = '$param'";
+                    $sql_remove ="Update Customer SET status = '0' Where cuscode = '$param'";
+                  }else if($txn == 'Routetxn'){
+                    //$sql_remove ="DELETE FROM route Where routecode = '$param'";
+                    $sql_remove ="Update route SET status = '0' Where routecode = '$param'";
+                  }else if($txn == 'itemtxn'){
+                   // $sql_remove ="DELETE FROM item Where ItemCode = '$param'";
+                   $sql_remove ="Update item SET Status = '0' Where ItemCode = '$param'";
+                  }
+            
+            $result = mysqli_query($connection,$sql_remove) or die(mysqli_error($connection));
+           
+            if($result == true){
+                echo '200';
+            }else{
+                echo '400';
+            }    
+            }
+        public static function assignMac($connection,$mac,$code){
+             
+            $sql = "UPDATE User SET MacId='$mac' WHERE Code='$code'";
+           
+            $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+            //echo $result;
+            
+            if($result == true){
+                return '200';
+            }else{
+                return '400';
+                 
+            }                 
+            }
+        public static function updateData($connection,$name,$code,$address,$mob,$type){
+
+            if($type == 'user'){
+                $sql = "UPDATE User SET Name='$name', Address = '$address', Mobile = '$mob' WHERE Code  ='$code'";
+               
+            }else if($type == 'customer'){
+                $sql = "UPDATE Customer SET cusname='$name', address = '$address', mobile = '$mob' WHERE cuscode = '$code'";
+               
+            }else if($type == 'route'){
+                $sql = "UPDATE route SET routename='$name' WHERE routecode = '$code'";
+               
+            }else if($type == 'item'){
+                $sql = "UPDATE item SET ItemName='$name', UOM = '$address' WHERE ItemCode = '$code'";
+               
+            }
+             
+                
+                $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+                //echo $result;
+                
+                if($result == true){
+                    return '200';
+                }else{
+                    return '400';
+                     
+                }                 
+            }
     public static function assignRoutes($connection,$rpcode,$rtcode){
 
     $sql = "INSERT INTO route_rep(repcode, routecode)"
@@ -83,21 +160,74 @@ class dataFunctions {
          //echo $sql;
     }
     }
+    public static function saveItemsNew($connection,$code,$name,$status,$uom,$price){
+
+        $query_check_exist = "select * from itempri where ItemCode = '$code'";
+        $result1=mysqli_query($connection,$query_check_exist) or die(mysqli_error($connection));
+        $rowcount=mysqli_num_rows($result1);
+        if($rowcount == 0){
+            //if item has no previous records then item insert item table and item price table
+
+            $sql = "INSERT INTO item(ItemCode, ItemName, UOM, Status)"
+            . "VALUES ('$code','$name','$uom','$status')";
+
+            $result2=mysqli_query($connection,$sql) or die(mysqli_error($connection));
+
+            if($result2 == true){
+                $sql2 = "INSERT INTO itempri(ItemCode, Price, ActiveStatus, allocatedDate)"
+              . "VALUES ('$code','$price','1',curdate())";
+               $result=mysqli_query($connection,$sql2) or die(mysqli_error($connection));
+               }else{
+                $result = $result2;
+               }
+        }else{
+            // if item has previous records then insert item table and update itempri table 
+
+            $sql3 = "INSERT INTO item(ItemCode, ItemName, UOM, Status)"
+            . "VALUES ('$code','$name','$uom','$status')";
+            $result3=mysqli_query($connection,$sql3) or die(mysqli_error($connection));
+
+            if($result3 == true){
+                $sql4 = "update itempri set ActiveStatus = '0' where ItemCode = '$code'";
+               $result4=mysqli_query($connection,$sql4) or die(mysqli_error($connection));
+
+               if($result4 == true){
+                      $sql5 = "INSERT INTO itempri(ItemCode, Price, ActiveStatus, allocatedDate)"
+                   . "VALUES ('$code','$price','1',curdate())";
+                    $result=mysqli_query($connection,$sql5) or die(mysqli_error($connection));
+               }else{
+                $result = $result4;
+               }
+               }else{
+                $result = $result3;
+               }
+
+        }
+
+           //echo $result;
+//
+   if($result == true){
+       echo '200';
+   }else{
+       echo '400';
+        //echo $sql;
+   }
+   }
      public static function priceAllocate($connection,$code,$price){
 
          $query_check_exist = "select * from itempri where ItemCode = '$code'";
          $result1=mysqli_query($connection,$query_check_exist) or die(mysqli_error($connection));
          $rowcount=mysqli_num_rows($result1);
          if($rowcount == 0){
-             $sql = "INSERT INTO itempri(ItemCode, Price, ActiveStatus)"
-            . "VALUES ('$code','$price','1')";
+             $sql = "INSERT INTO itempri(ItemCode, Price, ActiveStatus, allocatedDate)"
+            . "VALUES ('$code','$price','1',curdate())";
              $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
          }else{
              $sql = "update itempri set ActiveStatus = '0' where ItemCode = '$code'";
              $result2=mysqli_query($connection,$sql) or die(mysqli_error($connection));
              if($result2 == true){
-              $sql2 = "INSERT INTO itempri(ItemCode, Price, ActiveStatus)"
-            . "VALUES ('$code','$price','1')";
+              $sql2 = "INSERT INTO itempri(ItemCode, Price, ActiveStatus, allocatedDate)"
+            . "VALUES ('$code','$price','1',curdate())";
              $result=mysqli_query($connection,$sql2) or die(mysqli_error($connection));
              }else{
                  $result = $result2;
@@ -184,6 +314,33 @@ class dataFunctions {
 
 
     }
+
+    public static function getRouteDetails($connection) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM route where status = '1'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Name']=$row['routename'];
+            $temp['Code']=$row['routecode'];
+            
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
      public static function getRouteName($connection, $code) {
            // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
      $sql ="SELECT routename FROM route where routecode = '$code'";
@@ -234,7 +391,43 @@ class dataFunctions {
 
 
     }
+    public static function getOrdDetails($connection,$refno){
+        $date = date('Y-m-d');
+        $response = array();
 
+        $sql ="select ItemCode, ItemName, Amount, Price, Qty from orderdetail where refno = '$refno'";
+
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['ItemCode']=$row['ItemCode'];
+            $code = $row['ItemCode'];
+            $sql2 = "SELECT ItemName FROM item WHERE ItemCode = '$code'";
+
+            $result2= mysqli_query($connection,$sql2);
+        while ($row2 = mysqli_fetch_array($result2)){
+
+            $temp['ItemName'] = $row2['ItemName'];
+
+            }
+            $temp['Amount']=$row['Amount'];
+            $temp['Price']=$row['Price'];
+            $temp['Qty']=$row['Qty'];
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
     public static function getDailyOrderDetails($connection, $date){
 
         $response = array();
@@ -410,26 +603,109 @@ class dataFunctions {
         return $results;
 
     }
-//     public static function getCustomers($connection) {
-//           // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
-//     $sql ="SELECT cuscode , cusname FROM Customer";
-//
-//     $result_rr = mysqli_query($connection,$sql);
-//     $users["customers"] = array();
-//       if (mysqli_num_rows($result_rr) != 0) {
-//        while($row_rr= mysqli_fetch_array($result_rr)){
-//                        $makeRrArr['code']=$row_rr['cuscode'];
-//			$makeRrArr['name']=$row_rr['cusname'];
-//
-//			array_push($users["customers"],$makeRrArr);
-//        }
-//        return $users["customers"];
-//    } else {
-//      return $users["customers"];
-//    }
-//
-//
-//    }
+    public static function getUserDetails($connection) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM User WHERE Prefix <> '' and Status = '1'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Name']=$row['Name'];
+            $temp['UserName']=$row['UserName'];
+            $temp['MacId']=$row['MacId'];
+            $temp['Mobile']=$row['Mobile'];
+            $temp['Address']=$row['Address'];
+            $temp['Code']=$row['Code'];
+            $temp['Prefix']=$row['Prefix'];
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
+    public static function getCustomerDetails($connection) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM Customer where status = '1'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Name']=$row['cusname'];
+            $temp['route']=$row['routecode'];
+            $temp['Email']=$row['email'];
+            $temp['Mobile']=$row['mobile'];
+            $temp['Address']=$row['address'];
+            $temp['Code']=$row['cuscode'];
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
+
+    public static function getItemDetails($connection) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT itm.*, pri.Price  from item itm , itempri pri where itm.ItemCode = pri.ItemCode and pri.ActiveStatus = '1'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Name']=$row['ItemName'];
+            $temp['Code']=$row['ItemCode'];
+            $temp['UnitOfM']=$row['UOM'];
+            $temp['Price']=$row['Price'];
+
+        //     $itemcode = $row['ItemCode'];
+
+        //     $sql3 = "SELECT price FROM itempri WHERE itemcode = '$itemcode'";
+
+        //     $result3= mysqli_query($connection,$sql3);
+        //     if($result3 == TRUE){
+        // while ($row3 = mysqli_fetch_array($result3)){
+
+        //     $temp['Price'] = $row3['Price'];
+
+        //     }
+        // }else{
+        //     $temp['Price'] = '0';
+
+        // }
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
 
       public static function getCustomerOrders($connection,$code) {
         $date = date('Y-m-d');

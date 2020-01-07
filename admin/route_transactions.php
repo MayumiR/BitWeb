@@ -8,7 +8,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Customer transactions</title>
+        <title>Route transactions</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -31,10 +31,10 @@ $getRoutes = dataFunctions::getRoutes($connection);
             $(document).ready(function () {
 
 ///////////////////////////////show tada via data table//////////////////////////////////////////////
-                var table = $('#customers').DataTable();
+                var table = $('#routes').DataTable();
                     table.destroy();
-                      $('#customers').DataTable({
-                        "ajax": "getCustomerDetails.php",
+                      $('#routes').DataTable({
+                        "ajax": "getRouteDetails.php",
                         "columns": [
                         {
                         "className":      'details-control',
@@ -44,9 +44,6 @@ $getRoutes = dataFunctions::getRoutes($connection);
                         },
                         { "data": "Code" },
                         { "data": "Name" },
-                        { "data": "Email" },
-                        { "data": "Mobile" },
-                        { "data": "Address" },
                         {"mRender": function (data, type, row) {
                              return "<button class='btn btn-primary btn-xs' href='#updateModal'  data-toggle='modal' data-target='#updateModal' ><span class='glyphicon  glyphicon-pencil' aria-hidden='true'> </span></button>    <a href='#' id='remove' role='button' class='btn btn-danger btn-xs'><span class='glyphicon  glyphicon-remove' aria-hidden='true'> </span></a> ";      
                         }
@@ -87,7 +84,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                             }, function (data) {
                                 if (data == 200) {
                                     swal("User Saved");
-                                    window.location.href = 'customer_transactions.php';
+                                    window.location.href = 'route_transactions.php';
                                     //$('#newUser').hide();
                                     // setTimeout(function(){// wait for 5 secs(2)
                                     //     window.location.reload(); // then reload the page.(3)
@@ -111,35 +108,29 @@ $getRoutes = dataFunctions::getRoutes($connection);
           
 
             
-  //update customers
-  $('#customers').on('click', 'button', function () {
-        var data = $('#customers').DataTable().row($(this).closest('tr')).data();
+  //update routes
+  $('#routes').on('click', 'button', function () {
+        var data = $('#routes').DataTable().row($(this).closest('tr')).data();
         var code = data.Code;
 
         var savedName = data.Name;
-        var savedAddress = data.Address;
-        var savedMobile = data.Mobile;
-
-        //alert(savedName+' - '+savedAddress+' - '+savedMobile)
+       
 
         var lblname = 'Name - '+savedName;
-        var lbladdess = 'Address - '+savedAddress;
-        var lblmobile = 'Mobile - '+savedMobile;
 
         $("#lblName").text(lblname);
-        $("#lblAddress").text(lbladdess);
-        $("#lblMob").text(lblmobile);
-        $("#update_user").click(function () {
+        $("#update_route").click(function () {
                 var edtname = document.getElementById("editName").value;
-                var edtAdrs = document.getElementById("editAddress").value;
-                var edtMob = document.getElementById("editMobile").value;
-                var txntype = 'customer';
-               // alert(edtname+'-'+edtAdrs+' mm '+edtMob);
+                var edtMob = '0123456789';
+                var edtAdrs = 'test';
+                var txntype = 'route';
+                alert(' cod '+code+' ad '+edtAdrs+' mob '+edtMob+' nam '+edtname+' txn '+txntype);
 
-                    if (edtname == "" || edtAdrs == "" || edtMob == "") {
+                    if (edtname == "") {
                         $(".alert").removeClass("in").show();
                         $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
                     }else{
+                        
                               $.post("update.php", {
                                 code: code,
                                 addrs: edtAdrs,
@@ -148,10 +139,10 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                 txn: txntype
                             }, function (data) {
                                 if (data == 200) {
-                                    swal("Customer Updated");
-                                    window.location.href = 'customer_transactions.php';
+                                    swal("Route Updated");
+                                    window.location.href = 'route_transactions.php';
                                 } else if(data == 400){
-                                    swal("Customer not Updated");
+                                    swal("Route not Updated");
                                 }else{
                                     swal("Invalid mobile number");
                                 }
@@ -163,77 +154,64 @@ $getRoutes = dataFunctions::getRoutes($connection);
     });//close update click function
            
         
-     //remove customers
-     $('#customers').on('click', 'a', function () {
-        var data = $('#customers').DataTable().row($(this).closest('tr')).data();
+     //remove routes
+     $('#routes').on('click', 'a', function () {
+        var data = $('#routes').DataTable().row($(this).closest('tr')).data();
         var code = data.Code;
-        var type = 'customertxn';
-        var r = confirm("Are you sure to remove this customer?");
+        var type = 'Routetxn';
+        var r = confirm("Are you sure to remove this route?");
         if (r == true) {
             $.post("remove.php", {
                 KeyCode: code,
                 txn: type
             }, function (data) {
                 if (data == 200) {
-                    alert("Customer removed");
-                    window.location.href = 'customer_transactions.php';
+                    alert("Route removed");
+                    window.location.href = 'route_transactions.php';
                 } else {
-                    alert("Deleting Customer Failed!");
+                    alert("Deleting Route Failed!");
                 }
             });
         }
     });//close remove click function
 
-    //save customer
-    $("#saveCus").click(function () {
-                    var address = document.getElementById("cus_address").value;
-                    var Name = document.getElementById("cus_name").value;
-                    var route = document.getElementById("cus_route").value;
-                    var mobile = document.getElementById("cus_mobile").value;
-                    var email = document.getElementById("cus_email").value;
+   //save route......
+
+   $("#saveRoute").click(function () {
+                    var RouteCode = document.getElementById("route_code").value;
+                    var RouteName = document.getElementById("route_name").value;
                    
-                
                    //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
 
-                    if (mobile == "" || Name == "" || route == " --SELECT-- ") {
+                    if (RouteCode == "" || RouteName == "") {
                         $(".alert").removeClass("in").show();
                         $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
                     }else{
               
-                              $.post("saveCustomer.php", {
+                              $.post("saveRoute.php", {
 
-                                name: Name,
-                                address: address,
-                                route: route,
-                                mobile: mobile,
-                                email: email
+                                name: RouteName,
+                                code: RouteCode
 
                             }, function (data) {
-                               // alert(data);
+                                //alert(data);
                                 if (data == 200) {
                                     //    alert("Task Saved");
                                     //$('#newRt').modal('hide');
-                                    swal("Customer Saved");
-                                    window.location.href = 'index.php';
+                                    swal("Route Saved");
+                                    window.location.href = 'route_transactions.php';
                                     
 
-                                } else if(data == 400){
+                                } else {
                                     // alert("Task not Saved");
-                                    swal("Customer not Saved");
+                                    swal("Route not Saved");
 
-                                }else if(data == 300){
-                                    swal("Invalid email");
-                                
-                                }else{
-                                   // alert(data);
-                                    
-                                    swal("Invalid mobile number");
-                                
                                 }
-                            });    
+
+                            });
                         }
                     });
-    // end save customer
+    // end save route
 
 });
         </script>
@@ -292,7 +270,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="#newCus" role="button" id="btnFilter" data-target="#newCus"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Customer</a>
+                            <a href="#newRt" role="button" id="btnFilter" data-target="#newRt"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Route</a>
                         </li>
                     </ul>
             </div><!-- nav-collapse -->
@@ -306,7 +284,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Update Customer</h4>
+                                    <h4 class="modal-title">Update Route</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -319,110 +297,47 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-                                                    <label id="lblMob" for="inputPassword3" >Mobile</label>
-                                                    <input  placeholder="" type="text" class="form-control" id="editMobile"  />
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-                                                    <label id="lblAddress" for="inputPassword3" >Address</label>
-                                                    <input  placeholder="" type="text" class="form-control" id="editAddress"  />
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="update_user" class="btn btn-default" data-dismiss="modal">Update</button>
+                                    <button type="button" id="update_route" class="btn btn-default" data-dismiss="modal">Update</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 <!-- update  modal end-->
-<!--------------------------------Create new Customer------------------------------------------------>
-<div class="modal fade" id="newCus" tabindex="-1" role="dialog" aria-labelledby="newCus" aria-hidden="true">
+<!--------------------------------Create Route------------------------------------------------>
+<div class="modal fade" id="newRt" tabindex="-1" role="dialog" aria-labelledby="newRt" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
 
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Create Customer</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Create Route</h5>
 
 
                                     </div>
                                     <div class="modal-body">
 
-                               
-                                        <div class="row">
-                                            <div class="col col-md-12">
+                                         <div class="row">
+                                            <div class="col col-md-6">
                                                 <div class="form-group">
 
-                                                    <label for="inputPassword3" >Name</label>
-                                                    <input type="text" class="form-control" id="cus_name" />
+                                                    <label for="inputPassword3" >Route Code</label>
+
+                                                   <input type="text" class="form-control"  name="comment" id="route_code"  />
+
+                                                </div>
+                                            </div>
+                                             <div class="col col-md-6">
+                                               <div class="form-group">
+
+                                                    <label for="inputPassword3" >Route Name</label>
+                                                    <input type="text" class="form-control" id="route_name" />
                            
 
                                                 </div>
                                             </div>
-                                        </div>
-                                         <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-
-                                                    <label for="inputPassword3" >Address</label>
-
-                                                   <input type="text" class="form-control"  name="comment" id="cus_address"  />
-
-                                                </div>
-                                            </div>
-                                             
-                                        </div>
-
-                                        <div class="row">
-
-                                            <div class="col col-md-6">
-                                                <div class="form-group">
-                                                    <label 
-                                                        for="inputPassword3" >Route</label>
-                                                <select id="cus_route" class="form-control"  > 
-                                                        <option value=""> --SELECT-- </option>    
-                                                        <?php foreach ($getRoutes as $returnrow): ?>            
-
-                                                            <option value="<?= $returnrow['code'] ?>" > <?php echo $returnrow["name"]; ?> </option>
-
-                                                        <?php endforeach; ?>
-
-                                                    </select>   
-                                           
-                                                </div>
-                                            </div>
-                                            <div class="col col-md-6">
-
-                                                <div class="form-group">
-
-                                                    <label for="inputPassword3" >Mobile</label>
-
-                                                  <input type="number"  class="form-control"  name="comment" id="cus_mobile"  />
-
-                                                </div>
-
-                                            </div>
-                                            
-                                        </div>
-                                       <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-
-                                                    <label for="inputPassword3" >Email</label>
-
-                                                    <input type="email" class="form-control"  name="comment" id="cus_email"  />
-
-                                                </div>
-                                            </div>
-                                             
-                                        </div>
+                                         </div>
 
                                     </div>
 
@@ -434,24 +349,21 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                             </div>
                                         </div>
                                         <button class="btn btn-info"  data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                        <button id="saveCus" type="button" value="SaveCus" class="btn btn-primary">Save</button>
+                                        <button id="saveRoute" type="button" value="saveRoute" class="btn btn-primary">Save</button>
                                     </div>
                                 </div>   
                             </div>
                         </div>
-<!-- end create customer------------------------------------------------------------------------------------------------------------------>
-
+ <!-- end create Route------------------------------------------------------------------------------------------------------------------>
+  
     <div class="container">
     <div class="table-responsive">
-       <table id="customers" class="table table-striped table-bordered table-hover" style="width:100%">
+       <table id="routes" class="table table-striped table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
                 <th></th>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Address</th>
+                <th>Route Code</th>
+                <th>Route Name</th>
                 <th>Action</th>
             </tr>
           </thead>
