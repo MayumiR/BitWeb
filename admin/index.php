@@ -299,6 +299,9 @@ $getItems = dataFunctions::getItems($connection);
                                         <a href="route_transactions.php" role="button">Routes</a>
                                     </li>
                                     <li>
+                                                <a href="#repRoute" role="button" id="rep_route" data-target="#assignRt"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span> Assign Route</a>
+                                            </li>
+                                    <li>
                                         <a href="#reason" role="button" id="reason" data-target="#newReason"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Reason</a>
                                     </li>
                                 
