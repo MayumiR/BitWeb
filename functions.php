@@ -662,6 +662,35 @@ class dataFunctions {
         return $results;
 
     }
+    public static function getReasonDetails($connection) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM Customer where status = '1'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Name']=$row['cusname'];
+            $temp['route']=$row['routecode'];
+            $temp['Email']=$row['email'];
+            $temp['Mobile']=$row['mobile'];
+            $temp['Address']=$row['address'];
+            $temp['Code']=$row['cuscode'];
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
 
     public static function getItemDetails($connection) {
         $date = date('Y-m-d');

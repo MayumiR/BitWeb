@@ -96,14 +96,6 @@ $getItems = dataFunctions::getItems($connection);
     } );
     
 });
-
-            
-                  $(".reason").click(function () {
-
-                   
-                        $('#newReason').modal('show');
-                 
-                });
                 
                  $(".repRoute").click(function () {
 
@@ -151,44 +143,7 @@ $getItems = dataFunctions::getItems($connection);
                      });
                
 
-      //save reason......
-          $("#saveReason").click(function () {
-                    var Code = document.getElementById("reason_code").value;
-                    var Name = document.getElementById("reason_name").value;
-                    var Type = document.getElementById("reason_type").value;
-                   
-                   //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
-
-                    if (Code == "" || Name == "" || Type == "0") {
-                        $(".alert").removeClass("in").show();
-                        $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
-                    }else{
-              
-                              $.post("saveReason.php", {
-
-                                name: Name,
-                                type: Type,
-                                code: Code
-
-                            }, function (data) {
-                                //alert(data);
-                                
-                                if (data == 200) {
-                                    //    alert("Task Saved");
-                                    //$('#newRt').modal('hide');
-                                    swal("Reason Saved");
-                                    window.location.href = 'index.php';
-                                    
-                                } else {
-                                    // alert("Task not Saved");
-                                    swal("Reason not Saved");
-
-                                }
-                            });
-                        }
-                    });
-      //close save route       
-
+      
         $(document).on('click', '.edit', function()
         {
             alert(1234);
@@ -299,10 +254,10 @@ $getItems = dataFunctions::getItems($connection);
                                         <a href="route_transactions.php" role="button">Routes</a>
                                     </li>
                                     <li>
-                                                <a href="#repRoute" role="button" id="rep_route" data-target="#assignRt"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span> Assign Route</a>
-                                            </li>
+                                        <a href="#repRoute" role="button" id="rep_route" data-target="#assignRt"  data-toggle="modal"><span class="glyphicon glyphicon-ok"></span> Assign Route</a>
+                                    </li>
                                     <li>
-                                        <a href="#reason" role="button" id="reason" data-target="#newReason"  data-toggle="modal"><span class="glyphicon glyphicon-plus"></span> Add Reason</a>
+                                        <a href="reason_transactions.php" role="button">Reasons</a>
                                     </li>
                                 
                                 
@@ -408,70 +363,7 @@ $getItems = dataFunctions::getItems($connection);
                             </div>
                         </div>
  <!-- end assign Route------------------------------------------------------------------------------------------------------------------>
-                 <!--------------------------------Create Reason------------------------------------------------>
-<div class="modal fade" id="newReason" tabindex="-1" role="dialog" aria-labelledby="newReason" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Create Reason</h5>
-                                    </div>
-                                    <div class="modal-body">
-                                 <div class="row">
-                                          
-                                             <div class="col col-md-6">
-                                               <div class="form-group">
-
-                                                    <label 
-                                                        for="inputPassword3" >Select Type</label>
-                                                    <select id="reason_type" class="form-control" > 
-                                                        <option value="0"> --SELECT-- </option>
-                                                        <option value="Exp"> Expense</option>
-                                                        <option value="Np"> Nonproductive</option>
-                                                         
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                             
-                                             <div class="col col-md-6">
-                                               <div class="form-group">
-
-                                                    <label for="inputPassword3" >Reason Code</label>
-                                                    <input type="text" class="form-control" id="reason_code" />
-                                                </div>
-                                            </div>
-                                         </div>
-                                        <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-
-                                                    <label for="inputPassword3" >Reason Name</label>
-                                                    <input type="text" class="form-control" id="reason_name" />
-                           
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                       
-
-                                    </div>
-
-                                    <div class="modal-footer">
-                                        <div class="span pull-left">
-                                            <div class="alert alert-danger fade">
-                                                <button type="button" class="close" data-dismiss="alert">Ã—</button>
-                                                <strong id="error">Alert!</strong> Please fill all fields.
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-info"  data-dismiss="modal" aria-hidden="true">Cancel</button>
-                                        <button id="saveReason" type="button" value="Savereason" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>   
-                            </div>
-                        </div>
- <!-- end create Reason------------------------------------------------------------------------------------------------------------------>
-                             <!--------------------------------order details------------------------------------------------>
+                                     <!--------------------------------order details------------------------------------------------>
 <div class="modal fade" id="ordertxn" tabindex="-1" role="dialog" aria-labelledby="ordertxn" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
