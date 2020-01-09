@@ -79,7 +79,10 @@ class dataFunctions {
                   }else if($txn == 'itemtxn'){
                    // $sql_remove ="DELETE FROM item Where ItemCode = '$param'";
                    $sql_remove ="Update item SET Status = '0' Where ItemCode = '$param'";
-                  }
+                  }else if($txn == 'reasontxn'){
+                   
+                    $sql_remove ="Update reason SET status = '0' Where code = '$param'";
+                   }
             
             $result = mysqli_query($connection,$sql_remove) or die(mysqli_error($connection));
            
@@ -117,6 +120,9 @@ class dataFunctions {
             }else if($type == 'item'){
                 $sql = "UPDATE item SET ItemName='$name', UOM = '$address' WHERE ItemCode = '$code'";
                
+            }else if($type == 'reason'){
+                $sql = "UPDATE reason SET name='$name'  WHERE code = '$code'";
+               
             }
              
                 
@@ -132,8 +138,8 @@ class dataFunctions {
             }
     public static function assignRoutes($connection,$rpcode,$rtcode){
 
-    $sql = "INSERT INTO route_rep(repcode, routecode)"
-            . "VALUES ('$rpcode','$rtcode')";
+    $sql = "INSERT INTO route_rep(repcode, routecode, assignedDate)"
+            . "VALUES ('$rpcode','$rtcode', curdate())";
 
             $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
             //echo $result;
@@ -296,7 +302,7 @@ class dataFunctions {
 // }
     public static function getRoutes($connection) {
            // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
-     $sql ="SELECT routecode ,routename FROM route";
+     $sql ="SELECT routecode ,routename FROM route where status = '1'";
 
      $result_route = mysqli_query($connection,$sql);
      $routes["routes"] = array();
@@ -498,7 +504,7 @@ class dataFunctions {
     }
      public static function getUsers($connection) {
            // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
-     $sql ="SELECT name , code FROM user where code <> ''";
+     $sql ="SELECT name , code FROM user where code <> '' and status = '1'";
 
      $result_rr = mysqli_query($connection,$sql);
      $users["users"] = array();
@@ -666,17 +672,14 @@ class dataFunctions {
         $date = date('Y-m-d');
         $response = array();
 
-        $sql = "SELECT * FROM Customer where status = '1'";
+        $sql = "SELECT * FROM reason where status = '1'";
 
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
 
-            $temp['Name']=$row['cusname'];
-            $temp['route']=$row['routecode'];
-            $temp['Email']=$row['email'];
-            $temp['Mobile']=$row['mobile'];
-            $temp['Address']=$row['address'];
-            $temp['Code']=$row['cuscode'];
+            $temp['type']=$row['type'];
+            $temp['code']=$row['code'];
+            $temp['name']=$row['name'];
 
         $response[]= $temp;
         }

@@ -214,7 +214,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                     //    alert("Task Saved");
                                     //$('#newRt').modal('hide');
                                     swal("Customer Saved");
-                                    window.location.href = 'index.php';
+                                    window.location.href = 'customer_transactions.php';
                                     
 
                                 } else if(data == 400){

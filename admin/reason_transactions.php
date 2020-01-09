@@ -31,9 +31,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
             $(document).ready(function () {
 
 ///////////////////////////////show tada via data table//////////////////////////////////////////////
-                var table = $('#customers').DataTable();
+                var table = $('#reasons').DataTable();
                     table.destroy();
-                      $('#customers').DataTable({
+                      $('#reasons').DataTable({
                         "ajax": "getReasonDetails.php",
                         "columns": [
                         {
@@ -42,11 +42,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
                          "data":           null,
                          "defaultContent": ''
                         },
-                        { "data": "Code" },
-                        { "data": "Name" },
-                        { "data": "Email" },
-                        { "data": "Mobile" },
-                        { "data": "Address" },
+                        { "data": "code" },
+                        { "data": "type" },
+                        { "data": "name" },
                         {"mRender": function (data, type, row) {
                              return "<button class='btn btn-primary btn-xs' href='#updateModal'  data-toggle='modal' data-target='#updateModal' ><span class='glyphicon  glyphicon-pencil' aria-hidden='true'> </span></button>    <a href='#' id='remove' role='button' class='btn btn-danger btn-xs'><span class='glyphicon  glyphicon-remove' aria-hidden='true'> </span></a> ";      
                         }
@@ -61,7 +59,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 
 //////////////////////////////show data function end ///////////////////////////////////////////////
 //save reason......
-$("#saveReason").click(function () {
+                $("#saveReason").click(function () {
                     var Code = document.getElementById("reason_code").value;
                     var Name = document.getElementById("reason_name").value;
                     var Type = document.getElementById("reason_type").value;
@@ -86,7 +84,7 @@ $("#saveReason").click(function () {
                                     //    alert("Task Saved");
                                     //$('#newRt').modal('hide');
                                     swal("Reason Saved");
-                                    window.location.href = 'index.php';
+                                    window.location.href = 'reason_transactions.php';
                                     
                                 } else {
                                     // alert("Task not Saved");
@@ -101,32 +99,26 @@ $("#saveReason").click(function () {
           
 
             
-  //update customers
-  $('#customers').on('click', 'button', function () {
-        var data = $('#customers').DataTable().row($(this).closest('tr')).data();
-        var code = data.Code;
+  //update reasons
+  $('#reasons').on('click', 'button', function () {
+        var data = $('#reasons').DataTable().row($(this).closest('tr')).data();
+        var code = data.code;
 
-        var savedName = data.Name;
-        var savedAddress = data.Address;
-        var savedMobile = data.Mobile;
+        var savedName = data.name;
 
         //alert(savedName+' - '+savedAddress+' - '+savedMobile)
 
         var lblname = 'Name - '+savedName;
-        var lbladdess = 'Address - '+savedAddress;
-        var lblmobile = 'Mobile - '+savedMobile;
 
         $("#lblName").text(lblname);
-        $("#lblAddress").text(lbladdess);
-        $("#lblMob").text(lblmobile);
-        $("#update_user").click(function () {
+        $("#update_reason").click(function () {
                 var edtname = document.getElementById("editName").value;
-                var edtAdrs = document.getElementById("editAddress").value;
-                var edtMob = document.getElementById("editMobile").value;
-                var txntype = 'customer';
+                var edtAdrs = '';
+                var edtMob = '1234567895';
+                var txntype = 'reason';
                // alert(edtname+'-'+edtAdrs+' mm '+edtMob);
 
-                    if (edtname == "" || edtAdrs == "" || edtMob == "") {
+                    if (edtname == "") {
                         $(".alert").removeClass("in").show();
                         $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
                     }else{
@@ -138,12 +130,12 @@ $("#saveReason").click(function () {
                                 txn: txntype
                             }, function (data) {
                                 if (data == 200) {
-                                    swal("Customer Updated");
-                                    window.location.href = 'customer_transactions.php';
+                                    swal("Reason Updated");
+                                    window.location.href = 'reason_transactions.php';
                                 } else if(data == 400){
-                                    swal("Customer not Updated");
+                                    swal("Reason not Updated");
                                 }else{
-                                    swal("Invalid mobile number");
+                                    swal("Invalid reason");
                                 }
                             });
                            
@@ -153,78 +145,28 @@ $("#saveReason").click(function () {
     });//close update click function
            
         
-     //remove customers
-     $('#customers').on('click', 'a', function () {
-        var data = $('#customers').DataTable().row($(this).closest('tr')).data();
-        var code = data.Code;
-        var type = 'customertxn';
-        var r = confirm("Are you sure to remove this customer?");
+     //remove reasons
+     $('#reasons').on('click', 'a', function () {
+        var data = $('#reasons').DataTable().row($(this).closest('tr')).data();
+        var code = data.code;
+        var type = 'reasontxn';
+        var r = confirm("Are you sure to remove this reason?");
         if (r == true) {
             $.post("remove.php", {
                 KeyCode: code,
                 txn: type
             }, function (data) {
                 if (data == 200) {
-                    alert("Customer removed");
-                    window.location.href = 'customer_transactions.php';
+                    alert("Reason removed");
+                    window.location.href = 'reason_transactions.php';
                 } else {
-                    alert("Deleting Customer Failed!");
+                    alert("Deleting Reason Failed!");
                 }
             });
         }
     });//close remove click function
 
-    //save customer
-    $("#saveCus").click(function () {
-                    var address = document.getElementById("cus_address").value;
-                    var Name = document.getElementById("cus_name").value;
-                    var route = document.getElementById("cus_route").value;
-                    var mobile = document.getElementById("cus_mobile").value;
-                    var email = document.getElementById("cus_email").value;
-                   
-                
-                   //alert(RepName+"-"+RepAddress+"-"+RepPwd+"-"+RepMobile+"-"+RepPrefix);
-
-                    if (mobile == "" || Name == "" || route == " --SELECT-- ") {
-                        $(".alert").removeClass("in").show();
-                        $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
-                    }else{
-              
-                              $.post("saveCustomer.php", {
-
-                                name: Name,
-                                address: address,
-                                route: route,
-                                mobile: mobile,
-                                email: email
-
-                            }, function (data) {
-                               // alert(data);
-                                if (data == 200) {
-                                    //    alert("Task Saved");
-                                    //$('#newRt').modal('hide');
-                                    swal("Customer Saved");
-                                    window.location.href = 'index.php';
-                                    
-
-                                } else if(data == 400){
-                                    // alert("Task not Saved");
-                                    swal("Customer not Saved");
-
-                                }else if(data == 300){
-                                    swal("Invalid email");
-                                
-                                }else{
-                                   // alert(data);
-                                    
-                                    swal("Invalid mobile number");
-                                
-                                }
-                            });    
-                        }
-                    });
-    // end save customer
-
+    
 });
         </script>
         <style>
@@ -296,38 +238,21 @@ $("#saveReason").click(function () {
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Update Customer</h4>
+                                    <h4 class="modal-title">Update Route</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
                                             <div class="col col-md-12">
                                                 <div class="form-group">
-                                                    <!-- <label for="inputName" >Name</label>
-                                                    <input type="text" class="form-control" id="rep_name" /> -->
                                                     <label id="lblName" for="inputPassword3" >Name</label>
                                                     <input  placeholder="" type="text" class="form-control" id="editName"  />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-                                                    <label id="lblMob" for="inputPassword3" >Mobile</label>
-                                                    <input  placeholder="" type="text" class="form-control" id="editMobile"  />
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col col-md-12">
-                                                <div class="form-group">
-                                                    <label id="lblAddress" for="inputPassword3" >Address</label>
-                                                    <input  placeholder="" type="text" class="form-control" id="editAddress"  />
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" id="update_user" class="btn btn-default" data-dismiss="modal">Update</button>
+                                    <button type="button" id="update_reason" class="btn btn-default" data-dismiss="modal">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -399,15 +324,13 @@ $("#saveReason").click(function () {
          
     <div class="container">
     <div class="table-responsive">
-       <table id="customers" class="table table-striped table-bordered table-hover" style="width:100%">
+       <table id="reasons" class="table table-striped table-bordered table-hover" style="width:100%">
           <thead>
             <tr>
                 <th></th>
                 <th>Code</th>
+                <th>Type</th>
                 <th>Name</th>
-                <th>Email</th>
-                <th>Mobile</th>
-                <th>Address</th>
                 <th>Action</th>
             </tr>
           </thead>
