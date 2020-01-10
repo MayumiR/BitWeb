@@ -25,7 +25,7 @@ mysqli_query($connection,"START TRANSACTION");
      //echo $_REQUEST['jsonString'];
 if(isset($json_decode) && count($json_decode) > 0){
 	/*check nonproductive already exist or not*/
-	$query_ck="SELECT `refno` FROM `DaynPrdHed` WHERE repcode='$userId' AND "
+	$query_ck="SELECT `refno` FROM `DaynPrdHed` WHERE RefNo ='$refno' AND "
                 . " txndate='$txnDate'";
         
        // echo ''.$query_ck;

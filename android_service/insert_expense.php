@@ -24,7 +24,7 @@ mysqli_query($connection,"START TRANSACTION");
      //echo $_REQUEST['jsonString'];
 if(isset($json_decode) && count($json_decode) > 0){
 	/*check expenses already exist or not*/
-	$query_ck="SELECT `refno` FROM `DayExpHed` WHERE repcode='$userId' AND "
+	$query_ck="SELECT `refno` FROM `DayExpHed` WHERE RefNo ='$refno' AND "
                 . " txndate='$txnDate'";
         
        // echo ''.$query_ck;
@@ -72,7 +72,7 @@ if(isset($json_decode) && count($json_decode) > 0){
 	}
 }else{
                 $response["result"] = false;
-		$response["message"] = "No data to insert";
+				$response["message"] = "No data to insert";
 }
 
 if ($all_query) {
