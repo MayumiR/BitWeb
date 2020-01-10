@@ -494,6 +494,7 @@ class dataFunctions {
 
 
     }
+    // for nonproductive report
     public static function getNonproductiveCalls($connection,$code) {
         $date = date('Y-m-d');
         $response = array();
@@ -508,25 +509,18 @@ class dataFunctions {
             $temp['Remarks']=$row['Remarks'];
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Reason']=$row['Reason'];
-        //    $temp['RepCode']=$row['RepCode'];
-        //      $cuscode =$row['CusCode'];
-        //      $repcode = $row['Repcode'];
-        //     $sql2 = "SELECT cusname FROM customer WHERE cuscode = '$cuscode'";
 
-        //     $result2= mysqli_query($connection,$sql2);
-        // while ($row2 = mysqli_fetch_array($result2)){
+            $code = $row['CusCode'];
+            $sql2 = "SELECT cusname FROM Customer WHERE cuscode = '$code'";
 
-        //     $temp['CusName'] = $row2['cusname'];
+            $result2= mysqli_query($connection,$sql2);
+        while ($row2 = mysqli_fetch_array($result2)){
 
-        //     }
-        //     $sql3 = "SELECT Name FROM User WHERE Code = '$repcode'";
+            $temp['cusname'] = $row2['cusname'];
 
-        //     $result3= mysqli_query($connection,$sql3);
-        // while ($row3 = mysqli_fetch_array($result3)){
+            }
 
-        //     $temp['RepName'] = $row3['Name'];
 
-        //     }
 
         $response[]= $temp;
         }
@@ -541,6 +535,49 @@ class dataFunctions {
         return $results;
 
     }
+
+    // for expense report
+
+    public static function getExpenses($connection,$code) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT exh.*, exd.Amt, exd.ExpCode FROM DayExphed exh, DayExpdet exd WHERE exh.RepCode = '$code' and exh.RefNo = exd.RefNo ";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['RefNo']=$row['RefNo'];
+            $temp['Remarks']=$row['Remarks'];
+            $temp['TxnDate']=$row['TxnDate'];
+            $temp['Amt']=$row['Amt'];
+            $temp['ExpCode']=$row['ExpCode'];
+            $code = $row['ExpCode'];
+            $sql2 = "SELECT name FROM reason WHERE code = '$code'";
+
+            $result2= mysqli_query($connection,$sql2);
+        while ($row2 = mysqli_fetch_array($result2)){
+
+            $temp['name'] = $row2['name'];
+
+            }
+
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
+
+    // for route wise report
       public static function getRouteWiseOrders($connection,$code) {
         $date = date('Y-m-d');
         $response = array();

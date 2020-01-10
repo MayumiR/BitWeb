@@ -281,7 +281,10 @@ $getItems = dataFunctions::getItems($connection);
                                             </li> 
                                             <li>
                                                 <a href="nonproductiveReport.php"  role="button" > Nonproductive Calls</a>
-                                            </li>  
+                                            </li> 
+                                            <li>
+                                                <a href="expenseReport.php"  role="button" > Expenses</a>
+                                            </li> 
                                         </ul>
                                     </li>
 

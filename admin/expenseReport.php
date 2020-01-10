@@ -8,7 +8,7 @@ $getUsers = dataFunctions::getUsers($connection);
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Nonproductive |Rpt</title>
+        <title>Expense |Rpt</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,13 +29,13 @@ $getUsers = dataFunctions::getUsers($connection);
 
             $("#Drpt").click(function () {
 
-                var table = $('#nonproductive').DataTable();
+                var table = $('#expense').DataTable();
                     table.destroy();
                 var code = document.getElementById("code").value;
                 alert(code);
-                      $('#nonproductive').DataTable({
+                      $('#expense').DataTable({
 
-                        "ajax": "getNonproductives.php?code=" + code,
+                        "ajax": "getExpenses.php?code=" + code,
                         "columns": [
                         {
                         "className":      'details-control',
@@ -44,10 +44,10 @@ $getUsers = dataFunctions::getUsers($connection);
                          "defaultContent": ''
                         },
                         { "data": "RefNo" },
-                        { "data": "cusname" },
+                        { "data": "name" },
                         { "data": "Remarks" },
                         { "data": "TxnDate" },
-                        { "data": "Reason" },
+                        { "data": "Amt" },
                       
         ],
         "order": [[1, 'asc']],
@@ -137,7 +137,7 @@ $getUsers = dataFunctions::getUsers($connection);
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Nonproductive Report</h4>
+                        <h4 class="modal-title">Expense Report</h4>
                     </div>
                     <div class="modal-body">
                          <div class="form-group">
@@ -175,15 +175,15 @@ $getUsers = dataFunctions::getUsers($connection);
 
     <div class="container">
    <div class="table-responsive">
-       <table id="nonproductive" class="table table-striped table-bordered table-hover" style="width:100%">
+       <table id="expense" class="table table-striped table-bordered table-hover" style="width:100%">
         <thead>
             <tr>
                 <th></th>
                 <th>RefNo</th>
-                <th>Customer</th>
+                <th>Expense</th>
                 <th>Remarks</th>
                 <th>Date</th>
-                <th>Reason</th>
+                <th>Amount</th>
 
             </tr>
         </thead>
