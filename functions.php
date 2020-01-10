@@ -346,8 +346,8 @@ class dataFunctions {
         while($row_rr= mysqli_fetch_array($result_rr)){
                         $makeRrArr['ItemCode']=$row_rr['ItemCode'];
 
-                        $makeRrArr['Amount']=$row_rr['Amount'];
-			$makeRrArr['Price']=$row_rr['Price'];
+                        $makeRrArr['Amount']=number_format($row_rr['Amount'],2,'.',',');
+			$makeRrArr['Price']=number_format($row_rr['Price'],2,'.',',');
                         $makeRrArr['Qty']=$row_rr['Qty'];
 
                         $code = $row_rr['ItemCode'];
@@ -387,8 +387,8 @@ class dataFunctions {
             $temp['ItemName'] = $row2['ItemName'];
 
             }
-            $temp['Amount']=$row['Amount'];
-            $temp['Price']=$row['Price'];
+            $temp['Amount']=number_format($row['Amount'],2,'.',',');
+            $temp['Price']=number_format($row['Price'],2,'.',',');
             $temp['Qty']=$row['Qty'];
 
         $response[]= $temp;
@@ -415,7 +415,7 @@ class dataFunctions {
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
-            $temp['TotAmt']=$row['TotAmt'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Repcode']=$row['Repcode'];
             $temp['RouteCode']=$row['RouteCode'];
@@ -494,6 +494,51 @@ class dataFunctions {
 
 
     }
+    // for attendance report
+    public static function getAttendances($connection,$code) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM Attendance WHERE RepCode = '$code'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['Date']=$row['txndate'];
+            $temp['StartTime']=$row['StartTime'];
+            $temp['StartKM']= number_format($row['StartKM'],2,'.',',');
+            $temp['Driver']=$row['Driver'];
+            $temp['Assist']=$row['Assist'];
+            $temp['Route']=$row['Route'];
+            $temp['EndKM']= number_format($row['EndKM'],2,'.',',');
+            $temp['Distance']=number_format($row['Distance'],2,'.',',');
+            $temp['EndTime']=$row['EndTime'];
+            $code = $row['Route'];
+            $sql2 = "SELECT routename FROM route WHERE routecode = '$code'";
+
+            $result2= mysqli_query($connection,$sql2);
+        while ($row2 = mysqli_fetch_array($result2)){
+
+            $temp['routename'] = $row2['routename'];
+
+            }
+
+
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
+
     // for nonproductive report
     public static function getNonproductiveCalls($connection,$code) {
         $date = date('Y-m-d');
@@ -550,7 +595,7 @@ class dataFunctions {
             $temp['RefNo']=$row['RefNo'];
             $temp['Remarks']=$row['Remarks'];
             $temp['TxnDate']=$row['TxnDate'];
-            $temp['Amt']=$row['Amt'];
+            $temp['Amt']=number_format($row['Amt'],2,'.',',');
             $temp['ExpCode']=$row['ExpCode'];
             $code = $row['ExpCode'];
             $sql2 = "SELECT name FROM reason WHERE code = '$code'";
@@ -589,7 +634,7 @@ class dataFunctions {
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
-            $temp['TotAmt']=$row['TotAmt'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Repcode']=$row['Repcode'];
             $temp['RouteCode']=$row['RouteCode'];
@@ -724,7 +769,7 @@ class dataFunctions {
             $temp['Name']=$row['ItemName'];
             $temp['Code']=$row['ItemCode'];
             $temp['UnitOfM']=$row['UOM'];
-            $temp['Price']=$row['Price'];
+            $temp['Price']=number_format($row['Price'],2,'.',',');
 
         $response[]= $temp;
         }
@@ -751,7 +796,7 @@ class dataFunctions {
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
-            $temp['TotAmt']=$row['TotAmt'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Repcode']=$row['Repcode'];
             $temp['RouteCode']=$row['RouteCode'];
@@ -820,7 +865,7 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
-            $temp['TotAmt']=$row['TotAmt'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Repcode']=$row['Repcode'];
             $temp['RouteCode']=$row['RouteCode'];
@@ -868,7 +913,7 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
-            $temp['TotAmt']=$row['TotAmt'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
             $temp['TxnDate']=$row['TxnDate'];
             $temp['Repcode']=$row['Repcode'];
             $temp['RouteCode']=$row['RouteCode'];
