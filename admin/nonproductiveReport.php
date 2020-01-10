@@ -3,12 +3,12 @@ session_start();
 require_once '../db/DBConnection.php';
 require_once '../functions.php';
 $connection=(new DBConnection())->getDBConnection();
-$getRoutes = dataFunctions::getRoutes($connection);
+$getUsers = dataFunctions::getUsers($connection);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Route wise |Rpt</title>
+        <title>Nonproductive |Rpt</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -29,12 +29,13 @@ $getRoutes = dataFunctions::getRoutes($connection);
 
             $("#Drpt").click(function () {
 
-                var table = $('#orders').DataTable();
+                var table = $('#nonproductive').DataTable();
                     table.destroy();
                 var code = document.getElementById("code").value;
-                      $('#orders').DataTable({
+                alert(code);
+                      $('#nonproductive').DataTable({
 
-                        "ajax": "getRouteWise.php?route=" + code,
+                        "ajax": "getNonproductives.php?code=" + code,
                         "columns": [
                         {
                         "className":      'details-control',
@@ -43,18 +44,17 @@ $getRoutes = dataFunctions::getRoutes($connection);
                          "defaultContent": ''
                         },
                         { "data": "RefNo" },
-                        { "data": "CusName" },
-                        { "data": "RouteName" },
+                        { "data": "CusCode" },
+                        { "data": "Remarks" },
                         { "data": "TxnDate" },
-                        { "data": "TotAmt" }
-                        ,
-                        {"mRender": function (data, type, row) {
+                        { "data": "Reason" },
+                        // {"mRender": function (data, type, row) {
 
-                                   // var res = '<button class="btn btn-primary btn-xs"><span class="glyphicon  glyphicon-remove" aria-hidden="true"></span></button>';
-                                   return "<button class='btn btn-primary btn-xs' href='#ordertxn'  data-toggle='modal' data-target='#ordertxn' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
-                                  // return res;
-                               }
-                        }
+                        //            // var res = '<button class="btn btn-primary btn-xs"><span class="glyphicon  glyphicon-remove" aria-hidden="true"></span></button>';
+                        //            return "<button class='btn btn-primary btn-xs' href='#nptxn'  data-toggle='modal' data-target='#nptxn' ><span class='glyphicon  glyphicon-eye-open' aria-hidden='true'></span></button>";
+                        //           // return res;
+                        //        }
+                        // }
         ],
         "order": [[1, 'asc']],
         dom: 'Bfrtip',
@@ -66,9 +66,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
         
 
         //sample for edit user
-        $('#orders').on('click', 'button', function () {
+        $('#nonproductive').on('click', 'button', function () {
 
-            var data = $('#orders').DataTable().row($(this).closest('tr')).data();
+            var data = $('#nonproductive').DataTable().row($(this).closest('tr')).data();
 
             var refno = data.RefNo;
 
@@ -182,17 +182,17 @@ var editedUser = document.getElementById("refno").value;
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Route wise sales report</h4>
+                        <h4 class="modal-title">Nonproductive Report</h4>
                     </div>
                     <div class="modal-body">
                          <div class="form-group">
 
                                                     <label
-                                                        for="inputPassword3" >Select Route</label>
+                                                        for="inputPassword3" >Select Rep</label>
 
                                                     <select id="code" class="form-control" >
                                                         <option value="0"> --SELECT-- </option>
-                                                        <?php foreach ($getRoutes as $returnrow): ?>
+                                                        <?php foreach ($getUsers as $returnrow): ?>
 
                                                             <option value="<?= $returnrow['code'] ?>" > <?php echo $returnrow['code'].' - '.$returnrow["name"]; ?> </option>
 
@@ -219,7 +219,7 @@ var editedUser = document.getElementById("refno").value;
 
 <!-- detail modal start-->
 <!--------------------------------order details------------------------------------------------>
-<div class="modal fade" id="ordertxn" tabindex="-1" role="dialog" aria-labelledby="ordertxn" aria-hidden="true">
+<div class="modal fade" id="nptxn" tabindex="-1" role="dialog" aria-labelledby="nptxn" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
 
@@ -231,10 +231,6 @@ var editedUser = document.getElementById("refno").value;
 <table  class="table table-striped table-bordered table-hover" id="detailtable" style="width:100%">
     <thead>
           <tr >
-            <!-- <th  class="text-center">Item</th>
-            <th  class="text-center">Quantity</th>
-            <th  class="text-center">Price(Rs.)</th>
-            <th  class="text-center">Amount</th> -->
             <th></th>
                 <th>ItemCode</th>
                 <th>ItemName</th>
@@ -259,16 +255,15 @@ var editedUser = document.getElementById("refno").value;
 <!-- detail  modal end-->
     <div class="container">
    <div class="table-responsive">
-       <table id="orders" class="table table-striped table-bordered table-hover" style="width:100%">
+       <table id="nonproductive" class="table table-striped table-bordered table-hover" style="width:100%">
         <thead>
             <tr>
                 <th></th>
                 <th>RefNo</th>
                 <th>Customer</th>
-                <th>Route</th>
+                <th>Remarks</th>
+                <th>Reason</th>
                 <th>Date</th>
-                <th>Total Amount</th>
-                <th>Action</th>
 
             </tr>
         </thead>

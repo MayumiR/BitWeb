@@ -54,17 +54,7 @@ class dataFunctions {
     }
     }
 
-    // public static function removeUser($connection,$param){
-                  
-    //     $sql_remove ="DELETE FROM User Where Code = '$param'";
-    //     $result = mysqli_query($connection,$sql_remove) or die(mysqli_error($connection));
-       
-    //         if($result == true){
-    //             echo '200';
-    //         }else{
-    //             echo '400';
-    //         }    
-    //     }
+
 
         public static function removeTxn($connection,$param,$txn){
                   if($txn == 'usertxn'){
@@ -125,7 +115,6 @@ class dataFunctions {
                
             }
              
-                
                 $result=mysqli_query($connection,$sql) or die(mysqli_error($connection));
                 //echo $result;
                 
@@ -280,26 +269,7 @@ class dataFunctions {
          //echo $sql;
     }
     }
-//     public static function getUsers($connection) {
-//       // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
-// $sql ="SELECT routecode ,routename FROM route";
 
-// $result_route = mysqli_query($connection,$sql);
-// $routes["routes"] = array();
-//   if (mysqli_num_rows($result_route) != 0) {
-//    while($row_route= mysqli_fetch_array($result_route)){
-//                    $makeRouteArr['code']=$row_route['routecode'];
-//  $makeRouteArr['name']=$row_route['routename'];
-
-//  array_push($routes["routes"],$makeRouteArr);
-//    }
-//    return $routes["routes"];
-// } else {
-//  return $routes["routes"];
-// }
-
-
-// }
     public static function getRoutes($connection) {
            // $sql ="SELECT Route,fa.Debcode FROM fDebtor as fd INNER JOIN fAJobHed as fa ON fd.DebCode=fa.Debcode";
      $sql ="SELECT routecode ,routename FROM route where status = '1'";
@@ -443,14 +413,6 @@ class dataFunctions {
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
 
-//            $temp['RefNo']=$row['RefNo'];
-//            $temp['CusCode']=$row['CusCode'];
-//            $temp['TotAmt']=$row['TotAmt'];
-//            $temp['Date']=$row['TxnDate'];
-//            $temp['RepCode']=$row['Repcode'];
-//            $temp['RouteCode']=$row['RouteCode'];
-//            $temp['Remark']=$row['Remark'];
-
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
             $temp['TotAmt']=$row['TotAmt'];
@@ -476,16 +438,6 @@ class dataFunctions {
             $temp['RouteName'] = $row3['routename'];
 
             }
-
-//            $taskId =$row['IndexNo'];
-//            $sql2 = "SELECT SUM(hours) as ActualH FROM fDailyActivity WHERE TaskId = '$taskId'";
-//
-//            $result2=sqlsrv_query($this->conn,$sql2);
-//            while ($row2=sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-//
-//            $temp['ActualHrs'] = $row2['ActualH'];
-//
-//            }
 
         $response[]= $temp;
 
@@ -542,7 +494,53 @@ class dataFunctions {
 
 
     }
+    public static function getNonproductiveCalls($connection,$code) {
+        $date = date('Y-m-d');
+        $response = array();
 
+        $sql = "SELECT nph.*,npd.Reason FROM DayNprdhed nph, DayNprddet npd WHERE nph.RepCode = '$code' and nph.RefNo = npd.RefNo ";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['RefNo']=$row['RefNo'];
+            $temp['CusCode']=$row['CusCode'];
+            $temp['Remarks']=$row['Remarks'];
+            $temp['TxnDate']=$row['TxnDate'];
+            $temp['Reason']=$row['Reason'];
+        //    $temp['RepCode']=$row['RepCode'];
+        //      $cuscode =$row['CusCode'];
+        //      $repcode = $row['Repcode'];
+        //     $sql2 = "SELECT cusname FROM customer WHERE cuscode = '$cuscode'";
+
+        //     $result2= mysqli_query($connection,$sql2);
+        // while ($row2 = mysqli_fetch_array($result2)){
+
+        //     $temp['CusName'] = $row2['cusname'];
+
+        //     }
+        //     $sql3 = "SELECT Name FROM User WHERE Code = '$repcode'";
+
+        //     $result3= mysqli_query($connection,$sql3);
+        // while ($row3 = mysqli_fetch_array($result3)){
+
+        //     $temp['RepName'] = $row3['Name'];
+
+        //     }
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
       public static function getRouteWiseOrders($connection,$code) {
         $date = date('Y-m-d');
         $response = array();
@@ -551,14 +549,6 @@ class dataFunctions {
 
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
-
-//            $temp['RefNo']=$row['RefNo'];
-//            $temp['CusCode']=$row['CusCode'];
-//            $temp['TotAmt']=$row['TotAmt'];
-//            $temp['Date']=$row['TxnDate'];
-//            $temp['RepCode']=$row['Repcode'];
-//            $temp['RouteCode']=$row['RouteCode'];
-//            $temp['Remark']=$row['Remark'];
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
@@ -585,16 +575,6 @@ class dataFunctions {
             $temp['RouteName'] = $row3['routename'];
 
             }
-
-//            $taskId =$row['IndexNo'];
-//            $sql2 = "SELECT SUM(hours) as ActualH FROM fDailyActivity WHERE TaskId = '$taskId'";
-//
-//            $result2=sqlsrv_query($this->conn,$sql2);
-//            while ($row2=sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-//
-//            $temp['ActualHrs'] = $row2['ActualH'];
-//
-//            }
 
         $response[]= $temp;
         }
@@ -709,22 +689,6 @@ class dataFunctions {
             $temp['UnitOfM']=$row['UOM'];
             $temp['Price']=$row['Price'];
 
-        //     $itemcode = $row['ItemCode'];
-
-        //     $sql3 = "SELECT price FROM itempri WHERE itemcode = '$itemcode'";
-
-        //     $result3= mysqli_query($connection,$sql3);
-        //     if($result3 == TRUE){
-        // while ($row3 = mysqli_fetch_array($result3)){
-
-        //     $temp['Price'] = $row3['Price'];
-
-        //     }
-        // }else{
-        //     $temp['Price'] = '0';
-
-        // }
-
         $response[]= $temp;
         }
 
@@ -747,14 +711,6 @@ class dataFunctions {
 
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
-
-//            $temp['RefNo']=$row['RefNo'];
-//            $temp['CusCode']=$row['CusCode'];
-//            $temp['TotAmt']=$row['TotAmt'];
-//            $temp['Date']=$row['TxnDate'];
-//            $temp['RepCode']=$row['Repcode'];
-//            $temp['RouteCode']=$row['RouteCode'];
-//            $temp['Remark']=$row['Remark'];
 
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
@@ -781,16 +737,6 @@ class dataFunctions {
             $temp['RouteName'] = $row3['routename'];
 
             }
-
-//            $taskId =$row['IndexNo'];
-//            $sql2 = "SELECT SUM(hours) as ActualH FROM fDailyActivity WHERE TaskId = '$taskId'";
-//
-//            $result2=sqlsrv_query($this->conn,$sql2);
-//            while ($row2=sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-//
-//            $temp['ActualHrs'] = $row2['ActualH'];
-//
-//            }
 
         $response[]= $temp;
         }
@@ -835,14 +781,6 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
 
-//            $temp['RefNo']=$row['RefNo'];
-//            $temp['CusCode']=$row['CusCode'];
-//            $temp['TotAmt']=$row['TotAmt'];
-//            $temp['Date']=$row['TxnDate'];
-//            $temp['RepCode']=$row['Repcode'];
-//            $temp['RouteCode']=$row['RouteCode'];
-//            $temp['Remark']=$row['Remark'];
-
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
             $temp['TotAmt']=$row['TotAmt'];
@@ -868,16 +806,6 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
             $temp['RouteName'] = $row3['routename'];
 
             }
-
-//            $taskId =$row['IndexNo'];
-//            $sql2 = "SELECT SUM(hours) as ActualH FROM fDailyActivity WHERE TaskId = '$taskId'";
-//
-//            $result2=sqlsrv_query($this->conn,$sql2);
-//            while ($row2=sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-//
-//            $temp['ActualHrs'] = $row2['ActualH'];
-//
-//            }
 
         $response[]= $temp;
         }
@@ -901,14 +829,6 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
 
-//            $temp['RefNo']=$row['RefNo'];
-//            $temp['CusCode']=$row['CusCode'];
-//            $temp['TotAmt']=$row['TotAmt'];
-//            $temp['Date']=$row['TxnDate'];
-//            $temp['RepCode']=$row['Repcode'];
-//            $temp['RouteCode']=$row['RouteCode'];
-//            $temp['Remark']=$row['Remark'];
-
             $temp['RefNo']=$row['RefNo'];
             $temp['CusCode']=$row['CusCode'];
             $temp['TotAmt']=$row['TotAmt'];
@@ -935,15 +855,6 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
 
             }
 
-//            $taskId =$row['IndexNo'];
-//            $sql2 = "SELECT SUM(hours) as ActualH FROM fDailyActivity WHERE TaskId = '$taskId'";
-//
-//            $result2=sqlsrv_query($this->conn,$sql2);
-//            while ($row2=sqlsrv_fetch_array($result2, SQLSRV_FETCH_ASSOC)){
-//
-//            $temp['ActualHrs'] = $row2['ActualH'];
-//
-//            }
 
         $response[]= $temp;
         }
@@ -982,33 +893,7 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
 	}
 
 
-    public static function GetRouteNo(){
-		$result_dis=mysql_query("SELECT (COUNT(`r_id`)+1) FROM `tbl_route`");
-		$row_po=mysql_fetch_row($result_dis);
-		return $row_po[0];
-	}
-
-
-	public static function GetProductId() {
-		$result_product = mysql_query("SELECT (COUNT(`p_id`)+1) FROM `tbl_product`");
-		$row_pID = mysql_fetch_row($result_product);
-		return $row_pID[0];
-	}
-
-
-
-	public function GetRep($userId) {
-		$result_salesRep = "select u_id,u_name from tbl_user order by u_name";
-		while ($row_userName = mysql_fetch_row($result_salesRep)) {
-		?>
-		<option value="<?php echo $row_userName[0]; ?>" <?php
-		if ($userId == $row_userName[0]) {
-		echo "selected";
-		}
-		?>><?php echo $row_userName[1]; ?></option>
-		<?php
-		}
-	}
+   
 
 
 

@@ -268,17 +268,20 @@ $getItems = dataFunctions::getItems($connection);
                                         <a href="#" id="filterRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="dailyReport.php" role="button" id="daily" ><span class="glyphicon glyphicon-leaf"></span> Today</a>
+                                                <a href="dailyReport.php" role="button" > Today</a>
                                             </li>
                                             <li>
-                                                <a href="dateWiseReport.php" role="button" id="dateWise" ><span class="glyphicon glyphicon-calendar"></span> Date Wise</a>
+                                                <a href="dateWiseReport.php" role="button" > Date Wise</a>
                                             </li>
                                            <li>
-                                                <a href="customerReport.php" role="button" id="customers" ><span class="glyphicon glyphicon-calendar"></span> Customer Wise</a>
+                                                <a href="customerReport.php" role="button" > Customer Wise</a>
                                             </li>
                                             <li>
-                                                <a href="routewise.php"  role="button" id="route" ><span class="glyphicon glyphicon-calendar"></span> Route Wise</a>
-                                            </li>   
+                                                <a href="routewise.php"  role="button" > Route Wise</a>
+                                            </li> 
+                                            <li>
+                                                <a href="nonproductiveReport.php"  role="button" > Nonproductive Calls</a>
+                                            </li>  
                                         </ul>
                                     </li>
 
