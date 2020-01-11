@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2020 at 11:07 AM
+-- Generation Time: Dec 29, 2019 at 04:38 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.1.19
 
@@ -45,9 +45,11 @@ CREATE TABLE `customer` (
 INSERT INTO `customer` (`cuscode`, `cusname`, `routecode`, `address`, `mobile`, `status`, `email`) VALUES
 ('C01452333', 'test1', 'asd', 'sadsdsdc', 1452333, 1, 'njnjn'),
 ('C1122334434', 'vvvvbbbb', 'r002', 'nnnnmmmm', 1122334434, 1, 'azxcsdf'),
-('C1234564567', 'bnm', 'rt007', 'mmm', 123456789, 0, 'sdf@gmail.com'),
-('C1452369870', 'Shashi', 'bb23', 'kirulapone', 1234567800, 1, 'abc@gmail.com'),
-('C1909/0001', 'test', 'asd', 'test address', 714258694, 1, 'abcd@gmail.com');
+('C1234564567', 'cccc', 'rt007', 'ccccc', 1234564567, 1, 'sdf@gmail.com'),
+('C1234567890', 'vv', 'b2 to b7', 'vvv', 1234567890, 1, 'ddfvvv'),
+('C1909/0001', 'test', 'asd', 'fgb', 71425869, 1, 'abcd@gmail.com'),
+('C1909/0002', 'vg', 'asd', 'vv', 714253685, 1, 'abcd@gmail.com'),
+('C3442323234', 'ddd', 'b2 to b7', 'dddd', 2147483647, 1, 'dff');
 
 -- --------------------------------------------------------
 
@@ -155,12 +157,8 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`ItemCode`, `ItemName`, `Status`, `UOM`) VALUES
-('Icaramelpdm', 'caramel pudim', 1, 'cup'),
-('IIceF5', 'Faluda flavour small ice drink new', 1, 'packet'),
-('Iitmnew', 'kiri peni ice cream cup ', 1, 'cup'),
-('Itest', 'testremove', 0, 'cup'),
-('IYgh01', 'Amashi Youghert', 1, 'cup'),
-('Iyghkh001', 'youghert kithul hakuru', 1, 'cup');
+('IIceF5', 'Faluda flavour small ice drink', 1, 'packet'),
+('IYgh01', 'Amashi Youghert', 1, 'cup');
 
 -- --------------------------------------------------------
 
@@ -171,25 +169,15 @@ INSERT INTO `item` (`ItemCode`, `ItemName`, `Status`, `UOM`) VALUES
 CREATE TABLE `itempri` (
   `ItemCode` varchar(50) NOT NULL DEFAULT '',
   `Price` decimal(50,0) NOT NULL DEFAULT '0',
-  `ActiveStatus` varchar(50) NOT NULL DEFAULT '1',
-  `allocatedDate` date NOT NULL DEFAULT '2020-01-01'
+  `ActiveStatus` varchar(50) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `itempri`
 --
 
-INSERT INTO `itempri` (`ItemCode`, `Price`, `ActiveStatus`, `allocatedDate`) VALUES
-('Icaramelpdm', '85', '1', '2020-01-07'),
-('IIce058', '12', '0', '2020-01-01'),
-('IIce058', '14', '1', '2020-01-01'),
-('IIIceF5', '5', '1', '2020-01-01'),
-('Iitmnew', '48', '1', '2020-01-07'),
-('IYgh01', '34', '0', '2020-01-01'),
-('IYgh01', '35', '0', '2020-01-02'),
-('IYgh01', '36', '0', '2020-01-03'),
-('IYgh01', '45', '1', '2020-01-07'),
-('Iyghkh001', '65', '1', '2020-01-01');
+INSERT INTO `itempri` (`ItemCode`, `Price`, `ActiveStatus`) VALUES
+('IIIceF5', '5', '1');
 
 -- --------------------------------------------------------
 
@@ -223,9 +211,7 @@ INSERT INTO `orderdetail` (`RefNo`, `ItemCode`, `Qty`, `Amount`, `Price`, `ItemN
 ('O1912/0010', 'IYgh01', 3, '15', '5', ''),
 ('O1912/0011', 'IIceF5', 3, '15', '5', ''),
 ('O1912/0011', 'IYgh01', 4, '20', '5', ''),
-('O1912/0012', 'IIceF5', 68, '340', '5', ''),
-('O2001/0001', 'IIceF5', 55, '275', '5', ''),
-('O2001/0001', 'IYgh01', 62, '310', '5', '');
+('O1912/0012', 'IIceF5', 68, '340', '5', '');
 
 -- --------------------------------------------------------
 
@@ -255,14 +241,13 @@ CREATE TABLE `orderheader` (
 --
 
 INSERT INTO `orderheader` (`RefNo`, `AddDate`, `CusCode`, `StartTime`, `EndTime`, `Longitude`, `Latitude`, `ManuRef`, `Remark`, `Repcode`, `TotAmt`, `TxnDate`, `DelDate`, `RouteCode`) VALUES
-('O1909/0001', '2019-09-01', 'C01452333', '14:05:18', '14:05:52', '0', '0', '', '', 'RS045', '35', '2019-09-01', '', 'b2 to b7'),
-('O1910/0001', '2019-10-28', 'C01452333', '19:59:39', '20:00:21', '0', '0', '', '', 'RS045', '35', '2019-10-28', '', 'b2 to b7'),
-('O1912/0001', '2019-12-23', 'C01452333', '10:56:14', '10:56:31', '0', '0', '', '', 'RS045', '20', '2019-12-23', '', 'b2 to b7'),
-('O1912/0002', '2019-12-24', 'C1909/0001', '12:08:29', '12:09:26', '0', '0', '', '', 'RS045', '55', '2019-12-24', '', 'b2 to b7'),
-('O1912/0010', '2019-12-24', 'C1909/0001', '15:22:44', '15:23:01', '0', '0', '', '', 'RS045', '100', '2019-12-24', '', 'b2 to b7'),
-('O1912/0011', '2019-12-24', 'C3442323234', '15:25:58', '15:26:08', '0', '0', '', '', 'RS045', '35', '2019-12-24', '', 'b2 to b7'),
-('O1912/0012', '2019-12-24', 'C1234567890', '15:58:24', '15:58:36', '0', '0', '', '', 'RS045', '340', '2019-12-24', '', 'b2 to b7'),
-('O2001/0001', '2020-01-01', 'C01452333', '21:14:03', '21:14:42', '0', '0', '', '', 'RS045', '585', '2020-01-01', '', 'asd');
+('O1909/0001', '2019-09-01', 'C01452333', '14:05:18', '14:05:52', '0', '0', '', '', 'RS045', '35', '2019-09-01', '', ''),
+('O1910/0001', '2019-10-28', 'C01452333', '19:59:39', '20:00:21', '0', '0', '', '', 'RS045', '35', '2019-10-28', '', ''),
+('O1912/0001', '2019-12-23', 'C01452333', '10:56:14', '10:56:31', '0', '0', '', '', 'RS045', '20', '2019-12-23', '', ''),
+('O1912/0002', '2019-12-24', 'C1909/0001', '12:08:29', '12:09:26', '0', '0', '', '', 'RS045', '55', '2019-12-24', '', ''),
+('O1912/0010', '2019-12-24', 'C1909/0001', '15:22:44', '15:23:01', '0', '0', '', '', 'RS045', '100', '2019-12-24', '', 'abcd@gmail.com'),
+('O1912/0011', '2019-12-24', 'C3442323234', '15:25:58', '15:26:08', '0', '0', '', '', 'RS045', '35', '2019-12-24', '', 'dff'),
+('O1912/0012', '2019-12-24', 'C1234567890', '15:58:24', '15:58:36', '0', '0', '', '', 'RS045', '340', '2019-12-24', '', 'b2 to b7');
 
 -- --------------------------------------------------------
 
@@ -284,9 +269,8 @@ CREATE TABLE `reason` (
 INSERT INTO `reason` (`type`, `code`, `name`, `status`) VALUES
 ('ex', 'ex001', 'Fuel charges', 1),
 ('ex', 'ex002', 'lunch expense', 1),
-('Exp', 'ex3456', 'test expense', 1),
-('Exp', 'exhuiu', 'hgh h', 0),
-('Exp', 'extest56', 'stationary', 1),
+('Exp', 'ex3456', 'dcvfgb', 1),
+('Exp', 'exhuiu', 'hgh h', 1),
 ('np', 'np001', 'shop closed', 1),
 ('np', 'np002', 'stock available', 1);
 
@@ -310,7 +294,7 @@ CREATE TABLE `reference` (
 --
 
 INSERT INTO `reference` (`repCode`, `settingCode`, `nNumVal`, `nMonth`, `nYear`, `id`) VALUES
-('rs045', 'SFAORDER', 0, 9, 2019, 1),
+('rs045', 'SFAORDER', 12, 9, 2019, 1),
 ('rs045', 'EXPENCE', 0, 9, 2019, 2);
 
 -- --------------------------------------------------------
@@ -353,11 +337,11 @@ CREATE TABLE `route` (
 --
 
 INSERT INTO `route` (`routecode`, `routename`, `status`) VALUES
-('asd', 'Rmoratuwa to katubedda', 1),
+('asd', 'a1 to a2', 1),
 ('b2 to b7', 'Rboralesgamuwa to borella', 1),
 ('bb23', 'galle to colombo', 1),
 ('r001', 'Maharagama - dehiwala', 1),
-('r002', 'maharagama-kottawa', 0),
+('r002', 'maharagama-kottawa', 1),
 ('rt007', 'maharagama to homagama', 1);
 
 -- --------------------------------------------------------
@@ -368,25 +352,18 @@ INSERT INTO `route` (`routecode`, `routename`, `status`) VALUES
 
 CREATE TABLE `route_rep` (
   `repcode` varchar(100) NOT NULL,
-  `routecode` varchar(100) NOT NULL,
-  `assignedDate` date NOT NULL DEFAULT '2020-01-01'
+  `routecode` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `route_rep`
 --
 
-INSERT INTO `route_rep` (`repcode`, `routecode`, `assignedDate`) VALUES
-('cv1122334455', 'asd', '2020-01-01'),
-('cv1122334455', 'bb23', '2020-01-01'),
-('ed0712345456', 'asd', '2020-01-01'),
-('fg1111111133', 'r001', '2020-01-01'),
-('MA0778965452', 'rt007', '2020-01-01'),
-('RS045', 'asd', '2020-01-01'),
-('RS045', 'b2 to b7', '2020-01-01'),
-('sm0112233654', 'r001', '2020-01-08'),
-('sm0714455645', 'bb23', '2020-01-08'),
-('vb0718456522', 'r002', '2020-01-01');
+INSERT INTO `route_rep` (`repcode`, `routecode`) VALUES
+('cv1122334455', 'asd'),
+('ed0712345456', 'asd'),
+('RS045', 'asd'),
+('RS045', 'b2 to b7');
 
 -- --------------------------------------------------------
 
@@ -413,12 +390,11 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`Name`, `UserName`, `Password`, `MacId`, `Mobile`, `Address`, `Status`, `Code`, `Target`, `Prefix`) VALUES
 ('admin', 'admin', '202cb962ac59075b964b07152d234b70', '', 0, '', 1, '', '0', ''),
-('testuser', 'root', '81dc9bdb52d04dc20036dbd8313ed055', '', 1234565203, 'test address', 1, 'jh1234565203', '10000', 'jh'),
-('llllkkk', 'mayumi', '202cb962ac59075b964b07152d234b70', '85:55:A5:F1:E6:0C', 2147483647, 'opopop', 1, 'MA0778965452', '10000', 'MA'),
-('rashmi', 'Rash', '202cb962ac59075b964b07152d234b70', '8455A5F1E60C', 114455663, 'maharagama', 1, 'RS045', '0', 'MR'),
-('shashi', 'mash', '81dc9bdb52d04dc20036dbd8313ed055', '8465A5F1E60C', 112233654, '1234,galle', 1, 'sm0112233654', '10000', 'sm'),
-('shashi', 'mash', '81dc9bdb52d04dc20036dbd8313ed055', '', 712233445, 'galle', 1, 'sm0712233445', '10000', 'sm'),
-('shashi', 'mash', 'fc4ddc15f9f4b4b06ef7844d6bb53abf', '', 714455645, 'galle', 0, 'sm0714455645', '10000', 'sm'),
+('aaaa', 'aa', '74b87337454200d4d33f80c4663dc5e5', '', 1122334455, 'aaaa', 1, 'cv1122334455', '10000', 'cv'),
+('ss', 'ss', '9f6e6800cfae7749eb6c486619254b9c', '', 712345456, 'sss', 1, 'ed0712345456', '10000', 'ed'),
+('sssssssss', 'root', '81dc9bdb52d04dc20036dbd8313ed055', '', 1111111133, 'aaa', 1, 'fg1111111133', '10000', 'fg'),
+('Mayumi', 'mayumi', '202cb962ac59075b964b07152d234b70', '', 778965452, 'test', 1, 'MA0778965452', '10000', 'MA'),
+('Rashmi W.G.M', 'Rash', '202cb962ac59075b964b07152d234b70', '8455A5F1E60C', 0, '', 1, 'RS045', '0', 'MR'),
 ('kaveesha', 'test', '202cb962ac59075b964b07152d234b70', '', 718456522, 'test1', 1, 'vb0718456522', '10000', 'vb');
 
 --
