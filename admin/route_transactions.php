@@ -124,7 +124,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 var edtMob = '0123456789';
                 var edtAdrs = 'test';
                 var txntype = 'route';
-                alert(' cod '+code+' ad '+edtAdrs+' mob '+edtMob+' nam '+edtname+' txn '+txntype);
+                //alert(' cod '+code+' ad '+edtAdrs+' mob '+edtMob+' nam '+edtname+' txn '+txntype);
 
                     if (edtname == "") {
                         $(".alert").removeClass("in").show();
