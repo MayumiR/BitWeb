@@ -429,8 +429,8 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                     <div class="modal-footer">
                                         <div class="span pull-left">
                                             <div class="alert alert-danger fade">
-                                                <button type="button" class="close" data-dismiss="alert">Ã—</button>
-                                                <strong id="error">Alert!</strong> Please fill all fields.
+                                                <button type="button" class="close" data-dismiss="alert"></button>
+                                                <strong id="error">Error!</strong> Please fill all fields.
                                             </div>
                                         </div>
                                         <button class="btn btn-info"  data-dismiss="modal" aria-hidden="true">Cancel</button>
