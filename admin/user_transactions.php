@@ -173,7 +173,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
         var savedAddress = data.Address;
         var savedMobile = data.Mobile;
 
-        alert(savedName+' - '+savedAddress+' - '+savedMobile)
+       // alert(savedName+' - '+savedAddress+' - '+savedMobile)
 
         var lblname = 'Name - '+savedName;
         var lbladdess = 'Address - '+savedAddress;
