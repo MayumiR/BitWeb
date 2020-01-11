@@ -32,7 +32,7 @@ $getUsers = dataFunctions::getUsers($connection);
                 var table = $('#attendance').DataTable();
                     table.destroy();
                 var code = document.getElementById("code").value;
-                alert(code);
+                //alert(code);
                       $('#attendance').DataTable({
 
                         "ajax": "getAttendances.php?code=" + code,

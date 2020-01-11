@@ -32,7 +32,7 @@ $getUsers = dataFunctions::getUsers($connection);
                 var table = $('#nonproductive').DataTable();
                     table.destroy();
                 var code = document.getElementById("code").value;
-                alert(code);
+                //alert(code);
                       $('#nonproductive').DataTable({
 
                         "ajax": "getNonproductives.php?code=" + code,

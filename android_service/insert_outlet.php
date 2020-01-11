@@ -38,9 +38,11 @@ if(isset($json_decode) && count($json_decode) > 0){
                         . "(cuscode,cusname,routecode,address,mobile,status,email) "
                         . "values('$refno','$outletId','$route','$address','$mobile',"
                         . "'$status',"
-                        . "'$email')";
+						. "'$email')";
+						
+						//echo $query_cus;
                 $result_queryh = mysqli_query($connection,$query_cus);
-		$result_queryh ? $num++ : $all_query = false;
+				$result_queryh ? $num++ : $all_query = false;
 		
 //		
 		
