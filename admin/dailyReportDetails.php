@@ -28,15 +28,6 @@ if (isset($_POST['ref_no'])) {
       "data"=>$response);
     }
 echo json_encode($results);
- // foreach($results['data'] as $result){
- //   $response .="<tr>";
- //   $response .="<td></td>";
- //   $response .="<td>". $result['name']."</td>";
- //   $response .="<td>". $result['qty']."</td>";
- //   $response .="<td>". $result['price']."</td>";
- //   $response .="<td>". $result['amount']."</td>";
- //   $response .="</tr>";
- // }
- // echo $response;
+
 }
 ?>

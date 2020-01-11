@@ -38,9 +38,10 @@ $getItems = dataFunctions::getItems($connection);
         <script type="text/javascript">
             
              $(document).ready(function () {
-                 
+                var table = $('#orders').DataTable();
+                    table.destroy();
                  //main order table
-                var table = $('#orders').DataTable( {
+                $('#orders').DataTable( {
         "ajax": "getOrders.php",
         "columns": [
             {
@@ -78,8 +79,9 @@ $getItems = dataFunctions::getItems($connection);
         $("#refnofortitle").text("Details Of Order RefNo - "+refno);
 
      //detail table show
-    
-        var table = $('#detailtable').DataTable( {
+     var table = $('#detailtable').DataTable();
+                    table.destroy();
+        $('#detailtable').DataTable( {
         "ajax": "getOrderDets.php?refno="+refno,
         "columns": [
             {
@@ -247,6 +249,7 @@ $getItems = dataFunctions::getItems($connection);
                                     <li>
                                         <a href="user_transactions.php" role="button" >Users</a>
                                     </li>
+                                    
                                     <li>
                                         <a href="customer_transactions.php" role="button">Customers</a>
                                     </li>
@@ -267,7 +270,25 @@ $getItems = dataFunctions::getItems($connection);
                                     <li class="dropdown">
                                         <a href="#" id="filterRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
-                                        <li>
+                                            <li>
+                                                <a href="userReport.php" role="button" > Users</a>
+                                            </li>
+                                            <li>
+                                                <a href="customerDetailsReport.php" role="button" > Customers</a>
+                                            </li>
+                                            <li>
+                                                <a href="itemReport.php" role="button" >Items</a>
+                                            </li>
+                                            <li>
+                                                <a href="priceReport.php" role="button" >Prices</a>
+                                            </li>
+                                            <li>
+                                                <a href="routeReport.php" role="button" >Routes</a>
+                                            </li>
+                                            <li>
+                                                <a href="reasonReport.php" role="button" >Reasons</a>
+                                            </li>
+                                            <li>
                                                 <a href="attendanceReport.php" role="button" > Attendance</a>
                                             </li>
                                             <li>
@@ -281,6 +302,9 @@ $getItems = dataFunctions::getItems($connection);
                                             </li>
                                             <li>
                                                 <a href="routewise.php"  role="button" > Route Wise Sale</a>
+                                            </li> 
+                                            <li>
+                                                <a href="repwisesalesReport.php"  role="button" > Rep Wise Sale</a>
                                             </li> 
                                             <li>
                                                 <a href="nonproductiveReport.php"  role="button" > Nonproductive Calls</a>

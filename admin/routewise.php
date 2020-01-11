@@ -32,9 +32,10 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 var table = $('#orders').DataTable();
                     table.destroy();
                 var code = document.getElementById("code").value;
+                var txn = 'routetxn';
                       $('#orders').DataTable({
 
-                        "ajax": "getRouteWise.php?route=" + code,
+                        "ajax": "getSalesReports.php?code=" + code+"&txn="+txn,
                         "columns": [
                         {
                         "className":      'details-control',
@@ -76,8 +77,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
             $("#refnofortitle").text("Details Of Order RefNo - "+refno);
 
 //detail table show
-
-   var table = $('#detailtable').DataTable( {
+var table2 = $('#detailtable').DataTable();
+                    table2.destroy();
+    $('#detailtable').DataTable( {
    "ajax": "getOrderDets.php?refno="+refno,
    "columns": [
        {

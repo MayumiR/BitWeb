@@ -125,6 +125,204 @@ class dataFunctions {
                      
                 }                 
             }
+
+            // for master data reports
+
+            public static function getUserMasterData($connection,$status,$txn){
+
+                $response = array();
+
+                if($txn == 'user'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM User";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM User where status = '1'";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM User where status = '0'";
+                    }
+                    $result= mysqli_query($connection,$sql);
+                     while ($row = mysqli_fetch_array($result)){
+             
+                         $temp['param1']=$row['Code'];
+                         $temp['param2']=$row['Name'];
+                         $temp['param3']=$row['Mobile'];
+
+                         $response[]= $temp;
+        
+        
+                        }
+
+                }else if($txn == 'item'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM Item";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM Item where Status = '1'";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM Item where Status = '0'";
+                    }
+
+                    $result= mysqli_query($connection,$sql);
+                     while ($row = mysqli_fetch_array($result)){
+             
+                         $temp['param1']=$row['ItemCode'];
+                         $temp['param2']=$row['ItemName'];
+                         $temp['param3']=$row['UOM'];
+
+                         $response[]= $temp;
+        
+        
+                        }
+
+                }else if($txn == 'route'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM route_rep ";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM route_rep where routecode in (select routecode from route where Status = '1')";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM route_rep where routecode in (select routecode from route where Status = '0')";
+                    }
+
+                    $result= mysqli_query($connection,$sql);
+                    while ($row = mysqli_fetch_array($result)){
+            
+                        $temp['repcode']=$row['repcode'];
+                        $temp['routecode']=$row['routecode'];
+                        $temp['param3']=$row['assignedDate'];
+
+                        $repcode = $row['repcode'];
+                        $sql2 = "SELECT Name FROM User WHERE Code = '$repcode'";
+            
+                        $result2= mysqli_query($connection,$sql2);
+                    while ($row2 = mysqli_fetch_array($result2)){
+            
+                        if($row2['Name'] == ''){
+                            $temp['param1'] = 'not assigned';
+                        }else{
+                            $temp['param1'] = $row2['Name'];
+                        }
+                        
+            
+                        }
+
+                        $routecode = $row['routecode'];
+                        $sql3 = "SELECT routename FROM route WHERE routecode = '$routecode'";
+            
+                        $result3= mysqli_query($connection,$sql3);
+                    while ($row3 = mysqli_fetch_array($result3)){
+            
+                        $temp['param2'] = $row3['routename'];
+            
+                        }
+
+                        $response[]= $temp;
+       
+       
+                       }
+
+                }else if($txn == 'reason'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM reason";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM reason where Status = '1'";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM reason where Status = '0'";
+                    }
+
+                    $result= mysqli_query($connection,$sql);
+                     while ($row = mysqli_fetch_array($result)){
+             
+                         $temp['param1']=$row['code'];
+                         $temp['param2']=$row['type'];
+                         $temp['param3']=$row['name'];
+
+                         $response[]= $temp;
+        
+        
+                        }
+
+                }else if($txn == 'price'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM ItemPri ";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM ItemPri where ActiveStatus = '1'";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM ItemPri where ActiveStatus = '0'";
+                    }
+
+                    $result= mysqli_query($connection,$sql);
+                    while ($row = mysqli_fetch_array($result)){
+            
+                        $temp['ItemCode']=$row['ItemCode'];
+                        $temp['param2']=$row['Price'];
+                        $temp['param3']=$row['allocatedDate'];
+
+                        $ItemCode = $row['ItemCode'];
+                        $sql2 = "SELECT ItemName FROM item WHERE ItemCode = '$ItemCode'";
+            
+                        $result2= mysqli_query($connection,$sql2);
+                    while ($row2 = mysqli_fetch_array($result2)){
+            
+                        $temp['param1'] = $row2['ItemName'];
+            
+                        }
+
+                        $response[]= $temp;
+       
+                    }
+                       
+
+                }else if($txn == 'customer'){
+
+                    if($status == '0'){
+                        $sql = "SELECT * FROM customer ";
+                    }else if($status == '1'){
+                        $sql = "SELECT * FROM customer where Status = '1'";
+                    }else if($status == '2'){
+                        $sql = "SELECT * FROM customer where Status = '0'";
+                    }
+
+                    $result= mysqli_query($connection,$sql);
+                    while ($row = mysqli_fetch_array($result)){
+            
+                        $temp['param1']=$row['cuscode'];
+                        $temp['param2']=$row['cusname'];
+                        $temp['route']=$row['routecode'];
+
+                        $code = $row['routecode'];
+                        $sql2 = "SELECT routename FROM route WHERE routecode = '$code'";
+            
+                        $result2= mysqli_query($connection,$sql2);
+                    while ($row2 = mysqli_fetch_array($result2)){
+            
+                        $temp['param3'] = $row2['routename'];
+            
+                        }
+
+                        $response[]= $temp;
+       
+                    }
+                       
+
+                }
+                   
+        
+                
+        
+                 $results = array(
+        "draw" => 1,
+        "recordsTotal" => count($response),
+        "recordsFiltered" => count($response),
+        "data"=>$response);
+        
+        
+                return $results;
+        
+            }
     public static function assignRoutes($connection,$rpcode,$rtcode){
 
     $sql = "INSERT INTO route_rep(repcode, routecode, assignedDate)"
@@ -671,6 +869,55 @@ class dataFunctions {
         return $results;
 
     }
+//for rep wise report
+    public static function getRepWiseOrders($connection,$code) {
+        $date = date('Y-m-d');
+        $response = array();
+
+        $sql = "SELECT * FROM orderheader WHERE Repcode = '$code'";
+
+       $result= mysqli_query($connection,$sql);
+        while ($row = mysqli_fetch_array($result)){
+
+            $temp['RefNo']=$row['RefNo'];
+            $temp['CusCode']=$row['CusCode'];
+            $temp['TotAmt']=number_format($row['TotAmt'],2,'.',',');
+            $temp['TxnDate']=$row['TxnDate'];
+            $temp['Repcode']=$row['Repcode'];
+            $temp['RouteCode']=$row['RouteCode'];
+            $temp['Remark']=$row['Remark'];
+             $cuscode =$row['CusCode'];
+             $routecode = $row['RouteCode'];
+            $sql2 = "SELECT cusname FROM customer WHERE cuscode = '$cuscode'";
+
+            $result2= mysqli_query($connection,$sql2);
+        while ($row2 = mysqli_fetch_array($result2)){
+
+            $temp['CusName'] = $row2['cusname'];
+
+            }
+            $sql3 = "SELECT routename FROM route WHERE routecode = '$routecode'";
+
+            $result3= mysqli_query($connection,$sql3);
+        while ($row3 = mysqli_fetch_array($result3)){
+
+            $temp['RouteName'] = $row3['routename'];
+
+            }
+
+        $response[]= $temp;
+        }
+
+         $results = array(
+"draw" => 1,
+"recordsTotal" => count($response),
+"recordsFiltered" => count($response),
+"data"=>$response);
+
+
+        return $results;
+
+    }
     public static function getUserDetails($connection) {
         $date = date('Y-m-d');
         $response = array();
@@ -902,11 +1149,16 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
         return $results;
 
     }
-    public static function getDateWiseOrders($connection,$from,$to){
+// for date wise report and daily report
+    public static function getDateWiseOrders($connection,$from,$to,$txn){
         $date = date('Y-m-d');
         $response = array();
-      //fDailyActivity.TxnDate >= '$from' AND fDailyActivity.TxnDate <= '$to'
-        $sql = "SELECT * FROM orderheader WHERE TxnDate >= '$from' AND TxnDate <= '$to'";
+
+        if($txn == 'datewise'){
+        $sql = "SELECT * FROM orderheader WHERE TxnDate BETWEEN '$from' AND '$to'";
+        }else if($txn == 'daily'){
+            $sql = "SELECT * FROM orderheader WHERE TxnDate = curdate()";
+        }
 
        $result= mysqli_query($connection,$sql);
         while ($row = mysqli_fetch_array($result)){
@@ -936,7 +1188,6 @@ AND YEAR(TxnDate) = YEAR(CURRENT_DATE())";
             $temp['RouteName'] = $row3['routename'];
 
             }
-
 
         $response[]= $temp;
         }

@@ -3,12 +3,12 @@ session_start();
 require_once '../db/DBConnection.php';
 require_once '../functions.php';
 $connection=(new DBConnection())->getDBConnection();
-$getRoutes = dataFunctions::getRoutes($connection);
+$getUsers = dataFunctions::getUsers($connection);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Date wise |Rpt</title>
+        <title>Rep wise |Rpt</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -31,12 +31,11 @@ $getRoutes = dataFunctions::getRoutes($connection);
 
                 var table = $('#orders').DataTable();
                     table.destroy();
-                    var from = document.getElementById("date1").value;
-                    var to = document.getElementById("date2").value;
-                    var txn = 'datewise';
+                var code = document.getElementById("code").value;
+                var txn = 'reptxn';
                       $('#orders').DataTable({
 
-                        "ajax": "getDateWise.php?from=" + from + "&to=" + to + "&txn=" + txn,
+                        "ajax": "getSalesReports.php?code=" + code+"&txn="+txn,
                         "columns": [
                         {
                         "className":      'details-control',
@@ -78,9 +77,10 @@ $getRoutes = dataFunctions::getRoutes($connection);
             $("#refnofortitle").text("Details Of Order RefNo - "+refno);
 
 //detail table show
-var table2 = $('#detailtable').DataTable();
+//var table = $('#detailtable').DataTable( {
+    var table2 = $('#detailtable').DataTable();
                     table2.destroy();
-    $('#detailtable').DataTable( {
+   $('#detailtable').DataTable( {
    "ajax": "getOrderDets.php?refno="+refno,
    "columns": [
        {
@@ -181,60 +181,26 @@ var table2 = $('#detailtable').DataTable();
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Date range sales report</h4>
+                        <h4 class="modal-title">Rep Wise Sales Report</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
+                         <div class="form-group">
 
-                            <label  for="inputPassword3">From</label>
+                                                    <label
+                                                        for="inputPassword3" >Select Rep</label>
 
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker1'>
-                                    <input type='text' class="form-control" id="date1" />
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
+                                                    <select id="code" class="form-control" >
+                                                        <option value="0"> --SELECT-- </option>
+                                                        <?php foreach ($getUsers as $returnrow): ?>
 
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker1').datetimepicker({
-                                        format: 'YYYY-MM-DD',
-                                        defaultDate: new Date()
+                                                            <option value="<?= $returnrow['code'] ?>" > <?php echo $returnrow['code'].' - '.$returnrow["name"]; ?> </option>
 
-                                    });
-
-                                });
-
-                            </script>
-                        </div>
-                        <div class="form-group">
-
-                            <label  for="inputPassword3" >To</label>
-
-                            <div class="form-group">
-                                <div class='input-group date' id='datetimepicker2'>
-                                    <input type="text" class="form-control" id="date2"/>
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <script type="text/javascript">
-                                $(function () {
-                                    $('#datetimepicker2').datetimepicker({
-                                        format: 'YYYY-MM-DD',
-                                        defaultDate: new Date()
-
-                                    });
+                                                        <?php endforeach; ?>
 
 
-                                });
 
-                            </script>
-                        </div>
+                                                    </select>
+                                                </div>
 
 
 

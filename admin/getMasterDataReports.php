@@ -3,10 +3,10 @@ session_start();
 require_once '../db/DBConnection.php';
 require_once '../functions.php';
 $connection=(new DBConnection())->getDBConnection();
-$from = $_REQUEST['from'];
-$to = $_REQUEST['to'];
+$status = $_REQUEST['status'];
 $txn = $_REQUEST['txn'];
-$getDateWiseOrders = dataFunctions::getDateWiseOrders($connection,$from,$to,$txn);
-echo json_encode($getDateWiseOrders);
+
+    $getUserList = dataFunctions::getUserMasterData($connection,$status,$txn);
+    echo json_encode($getUserList);
 
 
