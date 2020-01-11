@@ -96,10 +96,10 @@ class dataFunctions {
                  
             }                 
             }
-        public static function updateData($connection,$name,$code,$address,$mob,$type){
+        public static function updateData($connection,$name,$code,$address,$mob,$type,$target){
 
             if($type == 'user'){
-                $sql = "UPDATE User SET Name='$name', Address = '$address', Mobile = '$mob' WHERE Code  ='$code'";
+                $sql = "UPDATE User SET Name='$name', Address = '$address', Mobile = '$mob', Target = '$target' WHERE Code  ='$code'";
                
             }else if($type == 'customer'){
                 $sql = "UPDATE Customer SET cusname='$name', address = '$address', mobile = '$mob' WHERE cuscode = '$code'";
@@ -932,8 +932,10 @@ class dataFunctions {
             $temp['MacId']=$row['MacId'];
             $temp['Mobile']=$row['Mobile'];
             $temp['Address']=$row['Address'];
+            $temp['target']=$row['Target'];
             $temp['Code']=$row['Code'];
             $temp['Prefix']=$row['Prefix'];
+            
 
         $response[]= $temp;
         }

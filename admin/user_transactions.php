@@ -47,6 +47,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                         { "data": "UserName" },
                         { "data": "Mobile" },
                         { "data": "Address" },
+                        { "data": "target" },
                         {"mRender": function (data, type, row) {
                              return "<button class='btn btn-primary btn-xs' href='#updateModal'  data-toggle='modal' data-target='#updateModal' ><span class='glyphicon  glyphicon-pencil' aria-hidden='true'> </span></button>    <a href='#' id='remove' role='button' class='btn btn-danger btn-xs'><span class='glyphicon  glyphicon-remove' aria-hidden='true'> </span></a> <label class='btn btn-primary btn-xs' href='#macModal'  data-toggle='modal' data-target='#macModal' ><span class='glyphicon  glyphicon-cog' aria-hidden='true'> Assign Mac</span></label> ";      
                         }
@@ -69,8 +70,9 @@ $getRoutes = dataFunctions::getRoutes($connection);
                     var RepMobile = document.getElementById("rep_mobile").value;
                     var RepPrefix = document.getElementById("prefix").value;
                     var RepUName = document.getElementById("rep_uname").value;
+                    var RepTarget = document.getElementById("target").value;
                     var code = RepPrefix+RepMobile;
-                    if (RepMobile == "" || RepUName == "" || RepAddress == "" || RepPwd == "" || RepMobile == "" || RepPrefix == "") {
+                    if (RepTarget == "" || RepMobile == "" || RepUName == "" || RepAddress == "" || RepPwd == "" || RepMobile == "" || RepPrefix == "") {
                         $(".alert").removeClass("in").show();
                         $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
                     }else{
@@ -83,6 +85,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                 mobile: RepMobile,
                                 prefix: RepPrefix,
                                 uname: RepUName,
+                                target: RepTarget,
                                 code: code
                             }, function (data) {
                                 if (data == 200) {
@@ -172,24 +175,28 @@ $getRoutes = dataFunctions::getRoutes($connection);
         var savedName = data.Name;
         var savedAddress = data.Address;
         var savedMobile = data.Mobile;
+        var savedTarget = data.target;
 
        // alert(savedName+' - '+savedAddress+' - '+savedMobile)
 
         var lblname = 'Name - '+savedName;
         var lbladdess = 'Address - '+savedAddress;
         var lblmobile = 'Mobile - '+savedMobile;
-
+        var lblTrget = 'Monthly Target - '+savedTarget;
         $("#lblName").text(lblname);
         $("#lblAddress").text(lbladdess);
         $("#lblMob").text(lblmobile);
+        $("#lbltarget").text(lblTrget);
+        //alert(lblname+'-'+lbladdess+' mm '+lblmobile+' '+lblTrget);
         $("#update_user").click(function () {
                 var edtname = document.getElementById("editName").value;
                 var edtAdrs = document.getElementById("editAddress").value;
                 var edtMob = document.getElementById("editMobile").value;
+                var edtTrget = document.getElementById("editTarget").value;
                 var txntype = 'user';
-                //alert(edtname+'-'+edtAdrs+' mm '+edtMob);
+                //alert(edtname+'-'+edtAdrs+' mm '+edtMob+' '+edtTrget);
 
-                    if (edtname == "" || edtAdrs == "" || edtMob == "") {
+                    if (edtname == "" || edtAdrs == "" || edtMob == "" || edtTrget == "") {
                         $(".alert").removeClass("in").show();
                         $(".alert").delay(100).addClass("in").fadeOut(3000); // input validation
                     }else{
@@ -198,6 +205,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                 addrs: edtAdrs,
                                 mobil: edtMob,
                                 name: edtname,
+                                target: edtTrget,
                                 txn: txntype
                             }, function (data) {
                                 if (data == 200) {
@@ -371,10 +379,16 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col col-md-12">
+                                            <div class="col col-md-6">
                                                 <div class="form-group">
                                                     <label id="lblMob" for="inputPassword3" >Mobile</label>
                                                     <input  placeholder="" type="text" class="form-control" id="editMobile"  />
+                                            </div>
+                                            </div>
+                                            <div class="col col-md-6">
+                                                <div class="form-group">
+                                                    <label id="lbltarget" for="inputPassword3" >Monthly Target</label>
+                                                    <input  placeholder="" type="text" class="form-control" id="editTarget"  />
                                             </div>
                                             </div>
                                         </div>
@@ -446,16 +460,22 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="inputMobile" >Mobile</label>
                                                     <input type="number" class="form-control" id="rep_mobile" />
                                                 </div>
                                             </div>
-                                            <div class="col-6 col-md-6">
+                                            <div class="col-4 col-md-4">
                                                 <div class="form-group">
                                                     <label for="inputPrefix" >Prefix</label>
                                                     <input type="text" class="form-control" id="prefix" />
+                                                </div>
+                                            </div>
+                                            <div class="col-4 col-md-4">
+                                                <div class="form-group">
+                                                    <label for="inputPrefix" >Monthly Target</label>
+                                                    <input type="number" class="form-control" id="target" />
                                                 </div>
                                             </div>
                                     </div>
@@ -483,11 +503,12 @@ $getRoutes = dataFunctions::getRoutes($connection);
           <thead>
             <tr>
                 <th></th>
-                <th>RepCode</th>
-                <th>RepName</th>
-                <th>Rep Username</th>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Username</th>
                 <th>Mobile</th>
                 <th>Address</th>
+                <th>Target</th>
                 <th>Actions (edit | delete | assign mac id)</th>
             </tr>
           </thead>

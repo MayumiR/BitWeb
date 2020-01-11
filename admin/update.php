@@ -9,6 +9,7 @@ $code = $_REQUEST['code'];
 $name = $_REQUEST['name'];
 $mobile = $_REQUEST['mobil'];
 $address = $_REQUEST['addrs'];
+$trget = $_REQUEST['target'];
 $txntype = $_REQUEST['txn'];
 
 //alert(edtname+'-'+edtAdrs+' mm '+edtMob);
@@ -16,7 +17,7 @@ $txntype = $_REQUEST['txn'];
 
 if(preg_match('/^[0-9]{10}+$/', trim($mobile))) {
     // $phone is valid
-      $result  = dataFunctions::updateData($connection,$name,$code,$address,$mobile,$txntype);
+      $result  = dataFunctions::updateData($connection,$name,$code,$address,$mobile,$txntype,$trget);
       echo $result;
   }else{
       echo 'Invalid number';

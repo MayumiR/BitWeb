@@ -271,24 +271,6 @@ $getItems = dataFunctions::getItems($connection);
                                         <a href="#" id="filterRcd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a href="userReport.php" role="button" > Users</a>
-                                            </li>
-                                            <li>
-                                                <a href="customerDetailsReport.php" role="button" > Customers</a>
-                                            </li>
-                                            <li>
-                                                <a href="itemReport.php" role="button" >Items</a>
-                                            </li>
-                                            <li>
-                                                <a href="priceReport.php" role="button" >Prices</a>
-                                            </li>
-                                            <li>
-                                                <a href="routeReport.php" role="button" >Routes</a>
-                                            </li>
-                                            <li>
-                                                <a href="reasonReport.php" role="button" >Reasons</a>
-                                            </li>
-                                            <li>
                                                 <a href="attendanceReport.php" role="button" > Attendance</a>
                                             </li>
                                             <li>
@@ -312,6 +294,26 @@ $getItems = dataFunctions::getItems($connection);
                                             <li>
                                                 <a href="expenseReport.php"  role="button" > Expenses</a>
                                             </li> 
+                                            <li>
+                                                <a href="userReport.php" role="button" > Users</a>
+                                            </li>
+                                            <li>
+                                                <a href="customerDetailsReport.php" role="button" > Customers</a>
+                                            </li>
+                                            <li>
+                                                <a href="itemReport.php" role="button" >Items</a>
+                                            </li>
+                                            <li>
+                                                <a href="priceReport.php" role="button" >Prices</a>
+                                            </li>
+                                            <li>
+                                                <a href="routeReport.php" role="button" >Routes</a>
+                                            </li>
+                                            <li>
+                                                <a href="reasonReport.php" role="button" >Reasons</a>
+                                            </li>
+                                           
+                                            
                                         </ul>
                                     </li>
 

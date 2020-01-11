@@ -170,6 +170,7 @@ $("#saveItem").click(function () {
                 var edtUOM = document.getElementById("editUOM").value;
                 var txntype = 'item';
                 var edtmob = '2345678904';
+                var trgt = '1000';
                 //alert(edtname+'-'+edtAdrs+' mm '+edtMob);
 
                     if (edtname == "" || edtUOM == "") {
@@ -181,6 +182,7 @@ $("#saveItem").click(function () {
                                 addrs: edtUOM,
                                 mobil: edtmob,
                                 name: edtname,
+                                target : trgt,
                                 txn: txntype
                             }, function (data) {
                                 if (data == 200) {

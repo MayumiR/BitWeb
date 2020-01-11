@@ -124,6 +124,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                 var edtMob = '0123456789';
                 var edtAdrs = 'test';
                 var txntype = 'route';
+                var trgt = '1000';
                 //alert(' cod '+code+' ad '+edtAdrs+' mob '+edtMob+' nam '+edtname+' txn '+txntype);
 
                     if (edtname == "") {
@@ -136,6 +137,7 @@ $getRoutes = dataFunctions::getRoutes($connection);
                                 addrs: edtAdrs,
                                 mobil: edtMob,
                                 name: edtname,
+                                target : trgt,
                                 txn: txntype
                             }, function (data) {
                                 if (data == 200) {

@@ -9,14 +9,14 @@ $connection=(new DBConnection())->getDBConnection();
 //den meka balanna thiyenne..me tika witha
 $Repname = $_REQUEST['name'];
 $RepAddress = $_REQUEST['address'];
-//$RepPwd = $_REQUEST['pwd'];
+//$RepTarget = $_REQUEST['target'];
 $RepPwd = md5($_REQUEST['pwd']);
 $RepMobile = $_REQUEST['mobile'];
 $RepPrefix = $_REQUEST['prefix'];
 $code = $_REQUEST['code'];
 $status = '1';
 $uname = $_REQUEST['uname'];
-$target = '10000.00';
+$target = $_REQUEST['target'];
 
 if(preg_match('/^[0-9]{10}+$/', trim($RepMobile))) {
   // $phone is valid
